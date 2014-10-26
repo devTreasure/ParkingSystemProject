@@ -124,10 +124,10 @@ public class parkingGUI  extends  JFrame
 	    	}
 	       
 	       Status exitStatus = objticketmanager.processExitFor(ticketID);
-	       JOptionPane.showMessageDialog(null, exitStatus.getErrorMessage());
+	       JOptionPane.showMessageDialog(null, exitStatus.getMessage());
 
 	       
-	       Gate g=objticketmanager.gatemanagement.ExitGate(1);
+	      // Gate g=objticketmanager.gatemanagement.ExitGate(1);
 	    }
 
 		public void jButton2ActionPerformed(ActionEvent evt) {
