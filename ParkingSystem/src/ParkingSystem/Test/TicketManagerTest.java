@@ -21,5 +21,16 @@ public class TicketManagerTest {
 		assertEquals(newticket, ts);
 	
 	}
+	
+	@Test
+	public void newlycreateticketHasuniqueParkingID()
+	{
+		TicketManagement  t=new TicketManagement();
+	    Ticket newticket=t.createTicket();
+		Ticket ts=new Ticket();
+		
+		
+		assertNotEquals(newticket.generateTicketID(), ts.generateTicketID());
+	}
 
 }
