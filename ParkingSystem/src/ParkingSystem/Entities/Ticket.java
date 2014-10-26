@@ -132,7 +132,9 @@ public class Ticket {
 	
 	public void   activatetheTicektStatus()
 	{
-	     this.ticektStatus=TicketStatus.Active;
+		//deacitvated -(void) ticket can not be acitvated again
+		if (!(this.ticektStatus==TicketStatus.Void))
+	       this.ticektStatus=TicketStatus.Active;
 	}
 	
 	

@@ -47,8 +47,10 @@ public class TicketManagerTest {
 	  
 	}
 	
+
+
 	@Test
-	public void newlycreatedticketMustbeInActiveStatus()
+	public void  deactivatedTicketCannotbeReactivated()
 	{
 		TicketManagement  t=new TicketManagement();
 	    Ticket newticket=t.createTicket();
@@ -56,7 +58,12 @@ public class TicketManagerTest {
 		
 		newticket.activatetheTicektStatus();
 		
-		assertEquals(newticket.getTicektStatus(), TicketStatus.Active);
+		newticket.deactivatetheTicektStatus();
+		
+		//again re-trying to activate the ticet status
+		newticket.activatetheTicektStatus();
+		
+		assertEquals(newticket.getTicektStatus(), TicketStatus.Void);
 	}
 
 }
