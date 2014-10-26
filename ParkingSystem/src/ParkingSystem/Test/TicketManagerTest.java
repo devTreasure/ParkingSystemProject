@@ -23,7 +23,7 @@ public class TicketManagerTest {
 	}
 	
 	@Test
-	public void newlycreateticketHasuniqueParkingID()
+	public void newlycreatedticketMustHavesuniqueParkingID()
 	{
 		TicketManagement  t=new TicketManagement();
 	    Ticket newticket=t.createTicket();
