@@ -32,5 +32,18 @@ public class TicketManagerTest {
 		
 		assertNotEquals(newticket.generateTicketID(), ts.generateTicketID());
 	}
+	
+	@Test
+	public void  newlyCreatedTicketMustbeAddedInTicketCollectionSystem()
+	{
+		
+		TicketManagement  t=new TicketManagement();
+	    Ticket newticket=t.createTicket();
+		Ticket ts=new Ticket();
+		
+	     Boolean isTicektinCollection=	t.getTicketcollection().contains(newticket);
+	     assertEquals(true, isTicektinCollection);
+	  
+	}
 
 }
