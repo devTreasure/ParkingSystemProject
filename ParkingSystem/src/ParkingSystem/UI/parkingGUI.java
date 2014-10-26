@@ -12,6 +12,7 @@ import javax.swing.*;
 import ParkingSystem.Entities.CreditCard;
 import ParkingSystem.Entities.Gate;
 import ParkingSystem.Entities.GateStatus;
+import ParkingSystem.Entities.Status;
 import ParkingSystem.Entities.Ticket;
 import ParkingSystem.Entities.TicketStatus;
 import ParkingSystem.domain.GateManagement;
@@ -21,8 +22,7 @@ import ParkingSystem.domain.TicketManager;
 
 public class parkingGUI  extends  JFrame 
 {
-	
-	
+		
 	    javax.swing.JButton jButton1;
 	    javax.swing.JButton jButton2;
 	    javax.swing.JButton jButton3;
@@ -113,7 +113,6 @@ public class parkingGUI  extends  JFrame
 	    	
 	    	
 	    	UUID  ticketID = null;
-	    	Ticket ticket=null;
 	    	
 	    	try
 	    	{
@@ -124,34 +123,13 @@ public class parkingGUI  extends  JFrame
 	    		
 	    	}
 	       
-	       for(Ticket t : objticketmanager.ticketmager.getTicketcollection())
-	       {
-	    	   if(t.getTicektID()==ticketID)
-	             {
-	    		   ticket =t;
-	    	    }
-            // TODO add your handling code here:
-            }
+	       Status exitStatus = objticketmanager.processExitFor(ticketID);
+	       JOptionPane.showMessageDialog(null, exitStatus.getErrorMessage());
+
 	       
-	       if(ticket!=null)
-	       {
-	    	   if(ticket.getTicektStatus()==TicketStatus.Active && ticket.getIsPaid()==true)
-	    		   
-	    	   {
-	    		   Gate g=objticketmanager.gatemanagement.ExitGate(1);
-	    		   
-	    		   JOptionPane.showMessageDialog(null, "Vehicle exited from gate.");
-	    		   ticket.deactivatetheTicektStatus();
-	    		   objticketmanager.occupancy.decrementOcccupancy();
-	    		   
-	    		   objticketmanager.gatemanagement.closeGate();
-	    		   
-	    		  
-	    		  	    		  
-	    	   }
-	       }
+	       Gate g=objticketmanager.gatemanagement.ExitGate(1);
 	    }
-	    
+
 		public void jButton2ActionPerformed(ActionEvent evt) {
 			// TODO Auto-generated method stub.
 			//  
@@ -304,7 +282,7 @@ public class parkingGUI  extends  JFrame
 		    	 
 		    	  objticketmanager. occupancy.incrementOcccupancy();
 		    	 
-		    	 String currentCount= Integer.toString(objticketmanager.occupancy.currentParking) ;
+		    	 String currentCount= Integer.toString(objticketmanager.occupancy.currentParkingOccupancy) ;
 		    	 
 		    	 label5.setText(currentCount);
 		    	  
@@ -782,13 +760,13 @@ public class parkingGUI  extends  JFrame
 		        jLabel6.getAccessibleContext().setAccessibleName("lblticketInTime");
 		        jLabel7.getAccessibleContext().setAccessibleName("lblticketStatus");
 
-
 		        objticketmanager.occupancy.setParkingCapacity(10);
 		        
 		     
-		        
+	   
 			
 		}
+
 
 
 	public static void main(String[] args) throws InterruptedException {

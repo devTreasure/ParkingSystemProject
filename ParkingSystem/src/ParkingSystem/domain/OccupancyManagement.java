@@ -3,7 +3,7 @@ package ParkingSystem.domain;
 public class OccupancyManagement {
 	
 	int parkingCapacity;
-	public int currentParking;
+	public int currentParkingOccupancy;
 	
 
 	public void setParkingCapacity(int parkingCapacity) {
@@ -12,12 +12,12 @@ public class OccupancyManagement {
 
 	public void incrementOcccupancy()
 	{
-		this.currentParking+=1;
+		this.currentParkingOccupancy+=1;
 	}
 	
 	public void decrementOcccupancy()
 	{
-		this.currentParking-=1;
+		this.currentParkingOccupancy-=1;
 	}
 
 	public int getParkingCapacity() {
@@ -27,17 +27,17 @@ public class OccupancyManagement {
 	
 
 	public int getCurrentParking() {
-		return currentParking;
+		return currentParkingOccupancy;
 	}
 
 	public void setCurrentParking(int currentParking) {
-		this.currentParking = currentParking;
+		this.currentParkingOccupancy = currentParking;
 	}
 	
 	
 	public Boolean isParkingfull()
 	{
-		if(this.currentParking <= this.parkingCapacity)
+		if(this.currentParkingOccupancy <= this.parkingCapacity)
 			return false;
 		else
 			return true;
