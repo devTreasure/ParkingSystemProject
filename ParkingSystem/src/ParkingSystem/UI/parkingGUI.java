@@ -18,6 +18,7 @@ import ParkingSystem.domain.GateManagement;
 import ParkingSystem.domain.PaymentManagement;
 import ParkingSystem.domain.TicketManagement;
 import ParkingSystem.domain.TicketManager;
+
 public class parkingGUI  extends  JFrame 
 {
 	
@@ -29,11 +30,11 @@ public class parkingGUI  extends  JFrame
 	    javax.swing.JButton jButton5;
 	    javax.swing.JButton jButton7;
 	    javax.swing.JLabel jLabel1;
-	    javax.swing.JLabel jLabel2;
 	    javax.swing.JTextField jTextField1;
 	    javax.swing.JTextField jTextField2;
 	    javax.swing.JTextField jTextField3;
 	    javax.swing.JLabel jLabel3;
+	    javax.swing.JLabel jLabel2;
 	    javax.swing.JLabel jLabel4;
 	    javax.swing.JLabel jLabel5;
 	    javax.swing.JLabel jLabel6;
@@ -43,6 +44,7 @@ public class parkingGUI  extends  JFrame
 	    javax.swing.JLabel jLabel10;
 	    javax.swing.JLabel jLabel11;
 	    javax.swing.JLabel jLabel12;
+	    javax.swing.JLabel jLabel14;
 	    javax.swing.JTextField jTextField4;
 	    javax.swing.JTextField jTextField5;
 	    javax.swing.JTextField jTextField6;
@@ -59,6 +61,10 @@ public class parkingGUI  extends  JFrame
 	    java.awt.Label label4;
 	    java.awt.Label label5;
 	    java.awt.Label label6;
+	    javax.swing.JButton jButton6;
+
+	    javax.swing.JButton jButton8;
+	    javax.swing.JButton jButton9;
 	    
 	    private java.awt.Choice choice1;
 
@@ -339,6 +345,19 @@ public class parkingGUI  extends  JFrame
 		  
 	    }        
 	   
+	   private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	        // TODO add your handling code here:
+	    }                                        
+
+	    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	        // TODO add your handling code here:
+	    }                                        
+
+	    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	        // TODO add your handling code here:
+	    }                                        
+
+	   
 	   private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	        // TODO add your handling code here:
 			  Calendar   c=Calendar.getInstance();
@@ -370,12 +389,13 @@ public class parkingGUI  extends  JFrame
 		        jTextField10 = new javax.swing.JTextField();
 		        jTextField11 = new javax.swing.JTextField();
 		        jTextField12 = new javax.swing.JTextField();
-		        jLabel2 = new javax.swing.JLabel();
+		        jLabel14 = new javax.swing.JLabel();
 		        jTextField2 = new javax.swing.JTextField();
 		        jButton1 = new javax.swing.JButton();
 		        jButton2 = new javax.swing.JButton();
 		        jButton3 = new javax.swing.JButton();
 		        jButton7 = new javax.swing.JButton();
+		        jLabel2 = new javax.swing.JLabel();
 		        jLabel3 = new javax.swing.JLabel();
 		        jLabel4 = new javax.swing.JLabel();
 		        jLabel5 = new javax.swing.JLabel();
@@ -404,7 +424,10 @@ public class parkingGUI  extends  JFrame
 		        label4 = new java.awt.Label();
 		        label5 = new java.awt.Label();
 		        label6 = new java.awt.Label();
-		        
+		        jButton6 = new javax.swing.JButton();
+		        jButton8 = new javax.swing.JButton();
+		        jButton9 = new javax.swing.JButton();
+		        jLabel14 = new javax.swing.JLabel();
 		        
 		        choice1 = new java.awt.Choice();
 		        
@@ -536,7 +559,31 @@ public class parkingGUI  extends  JFrame
 		 
 		        label6.setText("Parking Count");
 		        
-		        
+		        jButton6.setText("Gate1");
+		        jButton6.addActionListener(new java.awt.event.ActionListener() {
+		            public void actionPerformed(java.awt.event.ActionEvent evt) {
+		                jButton6ActionPerformed(evt);
+		            }
+		        });
+
+		        jButton8.setText("Gate2");
+		        jButton8.setToolTipText("");
+		        jButton8.addActionListener(new java.awt.event.ActionListener() {
+		            public void actionPerformed(java.awt.event.ActionEvent evt) {
+		                jButton8ActionPerformed(evt);
+		            }
+		        });
+
+		        jButton9.setText("Gate3");
+		        jButton9.setToolTipText("");
+		        jButton9.addActionListener(new java.awt.event.ActionListener() {
+		            public void actionPerformed(java.awt.event.ActionEvent evt) {
+		                jButton9ActionPerformed(evt);
+		            }
+		        });
+
+		        jLabel14.setText("Select Entry gate");
+		        jLabel14.setToolTipText("");
 
 		        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		        getContentPane().setLayout(layout);
@@ -571,14 +618,17 @@ public class parkingGUI  extends  JFrame
 		                    .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
 		                .addGap(0, 0, Short.MAX_VALUE))
 		            .addGroup(layout.createSequentialGroup()
-		                .addGap(123, 123, 123)
-		                .addComponent(jLabel1)
-		                .addGap(35, 35, 35)
 		                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		                    .addGroup(layout.createSequentialGroup()
-		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-		                            .addComponent(jLabel3))
+		                        .addGap(126, 126, 126)
+		                        .addComponent(jLabel1))
+		                    .addGroup(layout.createSequentialGroup()
+		                        .addGap(81, 81, 81)
+		                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+		                .addGap(20, 20, 20)
+		                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		                    .addGroup(layout.createSequentialGroup()
+		                        .addComponent(jLabel3)
 		                        .addContainerGap())
 		                    .addGroup(layout.createSequentialGroup()
 		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -589,7 +639,16 @@ public class parkingGUI  extends  JFrame
 		                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-		                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+		                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+		                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+		                            .addGroup(layout.createSequentialGroup()
+		                                .addGap(3, 3, 3)
+		                                .addComponent(jButton6)
+		                                .addGap(18, 18, 18)
+		                                .addComponent(jButton8)
+		                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+		                                .addComponent(jButton9)))
 		                        .addGap(58, 58, 58)
 		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		                            .addGroup(layout.createSequentialGroup()
@@ -624,19 +683,25 @@ public class parkingGUI  extends  JFrame
 		        layout.setVerticalGroup(
 		            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		            .addGroup(layout.createSequentialGroup()
-		                .addGap(37, 37, 37)
+		                .addContainerGap()
 		                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-		                    .addComponent(jLabel1)
-		                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-		                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                    .addComponent(jLabel1))
+		                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 		                    .addGroup(layout.createSequentialGroup()
-		                        .addGap(33, 33, 33)
+		                        .addGap(15, 15, 15)
+		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+		                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 		                        .addComponent(jButton1)
 		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 		                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE))
-		                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
+		                    .addGroup(layout.createSequentialGroup()
+		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
 		                        .addComponent(jLabel2)
 		                        .addGap(18, 18, 18)
 		                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -705,7 +770,7 @@ public class parkingGUI  extends  JFrame
 		                            .addComponent(jLabel13))
 		                        .addGap(18, 18, 18)
 		                        .addComponent(jButton3)
-		                        .addContainerGap(22, Short.MAX_VALUE))
+		                        .addContainerGap(23, Short.MAX_VALUE))
 		                    .addGroup(layout.createSequentialGroup()
 		                        .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -716,7 +781,8 @@ public class parkingGUI  extends  JFrame
 		        jLabel5.getAccessibleContext().setAccessibleName("lblticketID");
 		        jLabel6.getAccessibleContext().setAccessibleName("lblticketInTime");
 		        jLabel7.getAccessibleContext().setAccessibleName("lblticketStatus");
-		        
+
+
 		        objticketmanager.occupancy.setParkingCapacity(10);
 		        
 		     
