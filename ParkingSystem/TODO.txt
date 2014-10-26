@@ -48,6 +48,18 @@ once ticket is void can not be activated.
 gate opened gate must close.
 no two entries to two different gate for same ticket.
 
+------------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+-----------------------------------------------------
+TDD 
+
+must have
+could have 
+
+should have
+
+
 
 
 
