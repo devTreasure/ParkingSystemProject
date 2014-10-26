@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import ParkingSystem.Entities.Ticket;
+import ParkingSystem.Entities.TicketStatus;
 import ParkingSystem.domain.TicketManagement;
 
 public class TicketManagerTest {
@@ -44,6 +45,18 @@ public class TicketManagerTest {
 	     Boolean isTicektinCollection=	t.getTicketcollection().contains(newticket);
 	     assertEquals(true, isTicektinCollection);
 	  
+	}
+	
+	@Test
+	public void newlycreatedticketMustbeInActiveStatus()
+	{
+		TicketManagement  t=new TicketManagement();
+	    Ticket newticket=t.createTicket();
+		Ticket ts=new Ticket();
+		
+		newticket.activatetheTicektStatus();
+		
+		assertEquals(newticket.getTicektStatus(), TicketStatus.Active);
 	}
 
 }
