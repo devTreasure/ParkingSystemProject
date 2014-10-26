@@ -15,6 +15,7 @@ Add ui option to select gate before printing  ticket
 Print ticket
 add the  gateid to ticket
 add the time stamp
+verify the ticket status once ticket is paid.
 
 -- pay the  fee
 
