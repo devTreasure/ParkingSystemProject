@@ -68,7 +68,7 @@ public class PaymentManagement {
 	}
 
 	 
-	
+	/*
 	public long calculateParkingDuration(Date datein,Date dateOut)
 	{
 		long parkingDuration=(dateOut.getTime()  -  datein.getTime());
@@ -81,7 +81,7 @@ public class PaymentManagement {
 		return finaltime;
 		
 	}
-
+*/
 
 
 	public long calculateParkingDuration(Ticket ticket) {
