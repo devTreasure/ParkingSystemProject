@@ -20,7 +20,7 @@ public class TicketManager {
 	public TicketManagement ticketmager = new TicketManagement();
 	public PaymentManagement paymanager = new PaymentManagement();
 	public OccupancyManagement occupancy = new OccupancyManagement();
-	public FraudPrevetionManagement fraudManager = new FraudPrevetionManagement();
+	public FraudPreventionManagement fraudManager = new FraudPreventionManagement();
 	public CreditCard creditcard = new CreditCard();
 
 	public CreditCard getCreditcard() {
@@ -32,16 +32,15 @@ public class TicketManager {
 	}
 
 	public Ticket ticket;
-	public Gate gate = new Gate(0);
-
+	/*
 	public Gate getGate() {
-		return gate;
+		return gatemanagement.;
 	}
 
 	public void setGate(Gate gate) {
 		this.gate = gate;
 	}
-
+*/
 	public TicketManager() {
 
 	}
@@ -65,21 +64,21 @@ public class TicketManager {
 			// TODO add your handling code here:
 		}
 
-		if (ticket != null && ticket.getTicektStatus() == TicketStatus.Active
-				&& ticket.getIsPaid() == true) {
-
+		//if (fraudManager.isValidTicet(ticket)	&& ticket.getIsPaid() == true) {
+		if (fraudManager.checkNoExitWithoutPay(ticket)) {
+			
 			ticket.deactivatetheTicektStatus();
+			
 			Gate g1 = gatemanagement.openExitGate(1);
 
 			fraudManager.ticketgatecollection.put(ticket, g1);
 
-			occupancy.decrementOcccupancy();
-
+			
 			Gate g2 = gatemanagement.closeExitGate(1);
+			
+			occupancy.decrementOcccupancy();
 
 			fraudManager.ticketgatecollection.put(ticket, g2);
-
-			occupancy.decrementOcccupancy();
 
 			status = new Status(true, "Vehicle exited from gate.");
 
@@ -89,6 +88,7 @@ public class TicketManager {
 		return status;
 	}
 
+	/*
 	public void gateCloseOpeation(Gate gate) {
 		// TODO add your handling code here:
 
@@ -105,7 +105,7 @@ public class TicketManager {
 		}
 
 	}
-
+*/
 	public void printTicketOperation() {
 
 		// TODO add your handling code here:
@@ -115,7 +115,7 @@ public class TicketManager {
 		ticket.activatetheTicektStatus();
 		ticket.generateTicketID();
 
-		if (ticket != null && ticket.getTicektStatus() == TicketStatus.Active) {
+		if (fraudManager.isValidTicet(ticket)) {
 			this.ticket = ticket;
 
 			occupancy.incrementOcccupancy();
@@ -145,7 +145,10 @@ public class TicketManager {
 		Calendar c = Calendar.getInstance();
 
 		java.util.Date currenttime = c.getTime();
-
+		
+        //TODO:Disply hourly rate through system.
+	
+		
 		ticket.setExitTime(currenttime);
 		paymanager.setHourlyRate(11);
 
@@ -157,13 +160,15 @@ public class TicketManager {
 		parkingGUI.jTextField5.setText(Long.toString(rate));
 	}
 
-	public float processPayment(Ticket ticket2) {
+	public float processPayment(Ticket ticket) {
 
 		CreditCard crdeitcard = new CreditCard();
 
 		// associating ticket id to credit card id
 
 		crdeitcard.setTicketID(ticket.getTicektID());
+		
+		if(fraudManager.isValidTicet(ticket))
 
 		paymanager.Pay(ticket);
 
