@@ -15,7 +15,7 @@ public class GateManagement {
 	private List<Gate> gateMovementcollection  =   new ArrayList<Gate>();  
 	
 	
-	public Gate OpenGate(int gateid)
+	public Gate OpenEntryGate(int gateid)
 	{
 		Gate objGate=new  EntryGate(gateid);
 		this.gate=objGate;
@@ -28,8 +28,21 @@ public class GateManagement {
 		
 	}
 	
+	public Gate closeEntryGate(int gateid)
+	{
+		Gate objGate=new  EntryGate(gateid);
+		this.gate=objGate;
+		this.gate.gateStatus=GateStatus.Close;
+			
+		gateMovementcollection.add(objGate);
+		
+		return objGate;
+		
+		
+	}
 	
-	public Gate ExitGate(int gateid)
+	
+	public Gate openExitGate(int gateid)
 	{
 		Gate objGate=new  ExitGate(gateid);
 		this.gate=objGate;
@@ -41,10 +54,17 @@ public class GateManagement {
 	}
 	
 	
-	public void closeGate()
+	public Gate closeExitGate(int gateid)
 	{
 		
+
+		Gate objGate=new  ExitGate( gateid);
+		this.gate=objGate;
 		this.gate.gateStatus=GateStatus.Close;
+		
+		gateMovementcollection.add(objGate);
+		
+		return objGate;
 	}
 
 	public List<Gate> getGateMovementcollection() {
