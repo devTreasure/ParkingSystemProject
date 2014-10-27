@@ -1,5 +1,6 @@
 package ParkingSystem.domain;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -109,6 +110,7 @@ public class PaymentManagement {
 		  return (long) ((2.5)  * this.hourlyRate);
 		
 	}
+	
 	
 	
 	
