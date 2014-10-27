@@ -74,16 +74,16 @@ public class parkingGUI extends JFrame {
 	private void openGateActionPerformed(java.awt.event.ActionEvent evt) {
 
 		if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
-			objticketmanager.gate = objticketmanager.gatemanagement
-					.OpenEntryGate(objticketmanager.gate.GateId);
+			objticketmanager.gatemanagement.gate = objticketmanager.gatemanagement
+					.OpenEntryGate(objticketmanager.gatemanagement.gate.GateId);
 
 			// added for fraud prevention check
 			objticketmanager.fraudManager.ticketgatecollection.put(
-					objticketmanager.ticket, objticketmanager.gate);
+					objticketmanager.ticket, objticketmanager.gatemanagement.gate);
 
-			jTextField3.setText(objticketmanager.gate.gateStatus.toString());
+			jTextField3.setText(objticketmanager.gatemanagement.gate.gateStatus.toString());
 		} else {
-			jTextField3.setText(objticketmanager.gate.gateStatus.toString());
+			jTextField3.setText(objticketmanager.gatemanagement.gate.gateStatus.toString());
 		}
 
 		// TODO add your =handling code here:
@@ -91,16 +91,16 @@ public class parkingGUI extends JFrame {
 
 	private void entrygateClosingActionPerformed(java.awt.event.ActionEvent evt) {
 
-		if (objticketmanager.gate.gateStatus == GateStatus.Open) {
-			objticketmanager.gateCloseOpeation(objticketmanager.gate);
+		if (objticketmanager.gatemanagement.gate.gateStatus == GateStatus.Open) {
+			objticketmanager.gatemanagement.closeEntryGate(objticketmanager.gatemanagement.gate.GateId);
 
 			// ticket with gate movement is added in collection to check fraud
 			// activity
 
 			objticketmanager.fraudManager.ticketgatecollection.put(
-					objticketmanager.ticket, objticketmanager.gate);
+					objticketmanager.ticket, objticketmanager.gatemanagement.gate);
 
-			jTextField3.setText(objticketmanager.gate.gateStatus.toString());
+			jTextField3.setText(objticketmanager.gatemanagement.gate.gateStatus.toString());
 		}
 	}
 
@@ -247,9 +247,9 @@ public class parkingGUI extends JFrame {
 				.currentparkingStatus();
 		jTextField2.setText(parkingStatus.toString());
 
-		if (objticketmanager.gate.GateId == 1
-				|| objticketmanager.gate.GateId == 2
-				|| objticketmanager.gate.GateId == 3) {
+		if (objticketmanager.gatemanagement.gate.GateId == 1
+				|| objticketmanager.gatemanagement.gate.GateId == 2
+				|| objticketmanager.gatemanagement.gate.GateId == 3) {
 			jLabel4.setText("Printing Ticket...Please Wait");
 
 			objticketmanager.printTicketOperation();
@@ -285,20 +285,20 @@ public class parkingGUI extends JFrame {
 
 	private void gate1selectionActionPerformed(java.awt.event.ActionEvent evt) {
 
-		objticketmanager.gate = new EntryGate(1);
+		objticketmanager.gatemanagement.gate = new EntryGate(1);
 
 	}
 
 	private void gate2selectionActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 
-		objticketmanager.gate = new EntryGate(2);
+		objticketmanager.gatemanagement.gate = new EntryGate(2);
 
 	}
 
 	private void gate3SelectionActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
-		objticketmanager.gate = new EntryGate(3);
+		objticketmanager.gatemanagement.gate = new EntryGate(3);
 
 	}
 
@@ -424,7 +424,7 @@ public class parkingGUI extends JFrame {
 		buttonClosegate.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				// objticketmanager.gateCloseOpeation(this, evt);
-				objticketmanager.gateCloseOpeation(objticketmanager.gate);
+				objticketmanager.gatemanagement.closeEntryGate(objticketmanager.gatemanagement.gate.GateId);
 
 			}
 		});
@@ -436,7 +436,7 @@ public class parkingGUI extends JFrame {
 		jLabel10.setText("Amount");
 		jLabel10.setToolTipText("");
 
-		jLabel11.setText("Enter Expiry Date (MM-yyyy)");
+		jLabel11.setText("Enter Expiry Date (MM/yyyy)");
 
 		jLabel12.setText("CVV");
 
