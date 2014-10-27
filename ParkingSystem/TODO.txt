@@ -6,6 +6,14 @@
 6. Class Diagram   --needs  
 7. Overall Testing -- 1 days
 
+remove unused import  ctl+shft+O
+remove unused code/commented code 
+write  test case for each controller
+create parkingsystem.report 
+--test cases for above
+--interface report and multiple  class for each report type
+
+
 Gate
 
 :
