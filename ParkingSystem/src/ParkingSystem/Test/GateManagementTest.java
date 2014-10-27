@@ -9,27 +9,24 @@ import org.junit.Test;
 
 public class GateManagementTest {
 
-    @Test
-	public void whenGateOpeniscalledOutStausShoulebeOpen()
-	{
-		GateManagement g=new  GateManagement();
-		
-	    Gate gs=g.OpenEntryGate(1);
-	   
-		assertEquals(gs.gateStatus,GateStatus.Open);
-	
+	@Test
+	public void whenGateOpeniscalledOutGateStausShoulebeOpen() {
+		GateManagement g = new GateManagement();
+
+		Gate gs = g.OpenEntryGate(1);
+
+		assertEquals(gs.gateStatus, GateStatus.Open);
+
 	}
 
-    @Test
-   	public void whenGateClosediscalledOutStausShoulebeClosed()
-   	{
-   		GateManagement g=new  GateManagement();
-   		
-   	    Gate gs=g.closeEntryGate(1);
-   	   
-   		assertEquals(gs.gateStatus,GateStatus.Close);
-   	
-   	}
+	@Test
+	public void whenGateClosediscalledOutGateStausShoulebeClosed() {
+		GateManagement g = new GateManagement();
 
-    
+		Gate gs = g.closeEntryGate(1);
+
+		assertEquals(gs.gateStatus, GateStatus.Close);
+
+	}
+
 }
