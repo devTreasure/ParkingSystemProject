@@ -47,16 +47,18 @@ public class TicketManager {
 			   if(t.getTicektID()==ticketID)
 		         {
 				   ticket =t;
-			    }
+			     }
 		    // TODO add your handling code here:
 		    }
 		   
 		if (ticket != null && ticket.getTicektStatus() == TicketStatus.Active && ticket.getIsPaid() == true) {
 
 			ticket.deactivatetheTicektStatus();
+			Gate g1=gatemanagement.openExitGate(1);
 			occupancy.decrementOcccupancy();
 
-			gatemanagement.closeGate();
+			Gate g2=gatemanagement.closeExitGate(1);
+			
 			status = new Status(true, "Vehicle exited from gate.");
 			
 		} else {
