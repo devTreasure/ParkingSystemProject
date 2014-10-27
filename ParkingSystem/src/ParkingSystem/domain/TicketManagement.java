@@ -11,7 +11,7 @@ public class TicketManagement  {
 	private Ticket   ticket;
 	
 	private Gate   gate;
-	//TODO: determine  code for  tight coupling ,  use low coupling refactoring.
+	//TODO: review the   code for  tight coupling ,  use low coupling refactoring.
 	
 	private List<Ticket> ticketcollection  =   new ArrayList<Ticket>();
 	
