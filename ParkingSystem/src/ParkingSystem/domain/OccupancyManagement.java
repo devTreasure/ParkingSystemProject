@@ -1,10 +1,20 @@
 package ParkingSystem.domain;
 
+import ParkingSystem.Entities.ParkingStatus;
+
 public class OccupancyManagement {
 	
 	int parkingCapacity;
 	public int currentParkingOccupancy;
-	
+	public ParkingStatus   parkingstatus;
+
+	public ParkingStatus getParkingstatus() {
+		return parkingstatus;
+	}
+
+	public void setParkingstatus(ParkingStatus parkingstatus) {
+		this.parkingstatus = parkingstatus;
+	}
 
 	public void setParkingCapacity(int parkingCapacity) {
 		this.parkingCapacity = parkingCapacity;
@@ -37,10 +47,25 @@ public class OccupancyManagement {
 	
 	public Boolean isParkingfull()
 	{
-		if(this.currentParkingOccupancy <= this.parkingCapacity)
+		if(this.currentParkingOccupancy <this.parkingCapacity)
 			return false;
 		else
 			return true;
 	}
+	
+	public ParkingStatus  currentparkingStatus()
+	{
+		if(!(isParkingfull()))
+			this.parkingstatus=ParkingStatus.Open;
+		else
+			this.parkingstatus=ParkingStatus.Full;
 		
+		return this.parkingstatus;
+		
+	}
+	
+	
+	
+		
+	
 }
