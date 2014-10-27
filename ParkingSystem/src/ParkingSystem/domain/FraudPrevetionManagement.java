@@ -18,11 +18,7 @@ public class FraudPrevetionManagement {
 	
 	public Map<Ticket, Gate > ticketgatecollection =  new   HashMap<Ticket, Gate >();
 	
-	
-
-
-
-	
+		
 
 	public Map<String, Gate> getMultiMap() {
 		return multiMap;
@@ -66,4 +62,17 @@ public class FraudPrevetionManagement {
 	public void setTicketcollection(List<Ticket> ticketcollection) {
 		this.ticketcollection = ticketcollection;
 	}
+	
+	public void checkentryExitOperation()
+	{
+		for (Map.Entry<Ticket, Gate> entry : ticketgatecollection.entrySet()) {
+			Ticket key = entry.getKey();
+			Gate value = entry.getValue();
+			
+			 
+		    
+		}
+		
+	}
+	
 }
