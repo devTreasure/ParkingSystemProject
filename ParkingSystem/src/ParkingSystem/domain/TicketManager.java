@@ -33,7 +33,7 @@ public class TicketManager {
 	}
 
 	public Ticket ticket;
-    public Gate gate =   new Gate(1);
+    public Gate gate =   new Gate(0);
     
     public Gate getGate() {
 		return gate;
@@ -113,7 +113,7 @@ public class TicketManager {
 		  
 	}
 
-	public void printTicketOperation(final parkingGUI parkingGUI) {
+	public void printTicketOperation() {
 		
 	        // TODO add your handling code here:
 		   
@@ -130,7 +130,7 @@ public class TicketManager {
 		    	 
 		    	  occupancy.incrementOcccupancy();
 		    	 
-		    	
+		    	 
 		    	  
 		   		 Thread ts =new Thread(new Runnable() {
 					
