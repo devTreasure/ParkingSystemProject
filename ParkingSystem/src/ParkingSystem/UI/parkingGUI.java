@@ -10,7 +10,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
+import ParkingSystem.Entities.EntryGate;
 import ParkingSystem.Entities.Gate;
+import ParkingSystem.Entities.GateStatus;
 import ParkingSystem.Entities.ParkingStatus;
 import ParkingSystem.Entities.Status;
 import ParkingSystem.Entities.TicketStatus;
@@ -73,13 +75,12 @@ public class parkingGUI  extends  JFrame
 	    	
 	    	if(objticketmanager.ticket.getTicektStatus()==TicketStatus.Active )
 	    	{
-	    		objticketmanager.gate =objticketmanager.gatemanagement.OpenEntryGate(1);
+	    		objticketmanager.gate =objticketmanager.gatemanagement.OpenEntryGate(objticketmanager.gate.GateId);
 	    		
 	    		//added for fraud prevention check
 	    		objticketmanager.fraudManager.ticketgatecollection.put(objticketmanager.ticket,objticketmanager.gate);
 	    
-	    
-	    	   jTextField3.setText(objticketmanager.gate.gateStatus.toString());
+	       	   jTextField3.setText(objticketmanager.gate.gateStatus.toString());
 	    	}
 	    	else
 	    	{
@@ -88,7 +89,22 @@ public class parkingGUI  extends  JFrame
 	    	    
 	   	   
 	        // TODO add your =handling code here:
-	    }                                        
+	    }   
+  	    
+  	  private void entrygateClosingActionPerformed(java.awt.event.ActionEvent evt) {  
+  		  
+  		  if(objticketmanager.gate.gateStatus==GateStatus.Open)
+  		  {
+  		     objticketmanager.gateCloseOpeation(objticketmanager.gate);
+  		     
+  		     //ticket with gate movement is added in collection to check fraud activity
+  		     
+  		      objticketmanager.fraudManager.ticketgatecollection.put(objticketmanager.ticket,objticketmanager.gate);
+  		      
+             jTextField3.setText(objticketmanager.gate.gateStatus.toString());
+  		  }
+  	  }
+  	  
 
 	    private void exitActionPerformed(java.awt.event.ActionEvent evt) {    
 	    	
@@ -121,7 +137,7 @@ public class parkingGUI  extends  JFrame
 		  if(jTextField4.getText().length()>0)
 			
 		  {
-			if(jTextField4.getText().length()>12  || jTextField4.getText().length()<12 )
+			if(jTextField4.getText().length()>16  || jTextField4.getText().length()<16 )
 			{
 				JOptionPane.showMessageDialog(null, "Please enter valid card number");
 			
@@ -235,8 +251,7 @@ public class parkingGUI  extends  JFrame
 
 		public  void printTicketActionPerformed(java.awt.event.ActionEvent evt) {     
 		   
-		    jLabel4.setText("Printing Ticket...Please Wait");
-			
+		 	
 		    if( objticketmanager.occupancy.isParkingfull())
 		      {
 		    	 buttonPrintTicket.setVisible(false);
@@ -246,21 +261,29 @@ public class parkingGUI  extends  JFrame
 		      ParkingStatus  parkingStatus=  objticketmanager.occupancy.currentparkingStatus();
 		      jTextField2.setText(parkingStatus.toString());
 		      
-		       objticketmanager.printTicketOperation(this);
-		    	  
+		     if(objticketmanager.gate.GateId==1 ||objticketmanager.gate.GateId==2|| objticketmanager.gate.GateId==3  )
+		     {
+		    	   jLabel4.setText("Printing Ticket...Please Wait");
+		   		
+		 	          objticketmanager.printTicketOperation();
+		 	          
+		 			   jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
+					   jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString()); 
+					   jTextField12.setText(objticketmanager.ticket.getEntryTime().toString()); 
+					   jLabel4.setText("Success..Collect the ticket from slot");
+				      
+					   String currentCount= Integer.toString(objticketmanager.occupancy.currentParkingOccupancy) ;
+				    	 
+				       label5.setText(currentCount);
+		     }
+		     else
+		     {
+		    	 JOptionPane.showMessageDialog(null, "please select the entry gate");
+		     }
+		      // Gate g =  objticketmanager.gatemanagement.OpenEntryGate(3);
+	    	 // objticketmanager.fraudManager.ticketgatecollection.put(objticketmanager.ticket,g);
 		       //above method has delay 
-		       
-			   jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
-			   jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString()); 
-			   jTextField12.setText(objticketmanager.ticket.getEntryTime().toString()); 
-			   jLabel4.setText("Success..Collect the ticket from slot");
-		      
-			   String currentCount= Integer.toString(objticketmanager.occupancy.currentParkingOccupancy) ;
-		    	 
-		       label5.setText(currentCount);
-		       
-		       
-		       if(objticketmanager.ticket!=null && objticketmanager.ticket.getTicektStatus()==TicketStatus.Active)
+              if(objticketmanager.ticket!=null && objticketmanager.ticket.getTicektStatus()==TicketStatus.Active)
 			      {
 			    	
 			   		
@@ -273,16 +296,24 @@ public class parkingGUI  extends  JFrame
 			      }
 	    }
 
-	private void gate1selectionActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	        // TODO add your handling code here:
+	private void gate1selectionActionPerformed(java.awt.event.ActionEvent evt) {  
+		
+		
+		   objticketmanager.gate= new EntryGate(1);
+		   
 	    }                                        
 
 	    private void gate2selectionActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	        // TODO add your handling code here:
+	    	
+	    	objticketmanager.gate= new EntryGate(2);
+	    	
 	    }                                        
 
 	    private void gate3SelectionActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	        // TODO add your handling code here:
+	    	objticketmanager.gate= new EntryGate(3);
+	    	
 	    }                                        
 
 	   
@@ -349,8 +380,8 @@ public class parkingGUI  extends  JFrame
 		        
 		        buttonClosegate.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                objticketmanager.gateCloseOpeation(objticketmanager.gate);
-		                jTextField3.setText(objticketmanager.gate.gateStatus.toString());
+		            	entrygateClosingActionPerformed(evt);
+		              
 		            }
 		        });
 		        
@@ -539,7 +570,7 @@ public class parkingGUI  extends  JFrame
 		                        .addComponent(jLabel1))
 		                    .addGroup(layout.createSequentialGroup()
 		                        .addGap(81, 81, 81)
-		                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+		                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
 		                .addGap(20, 20, 20)
 		                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		                    .addGroup(layout.createSequentialGroup()
