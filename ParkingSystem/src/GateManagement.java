@@ -40,6 +40,7 @@ public class GateManagement {
 	}
 	
 	
+	
 	public void closeGate()
 	{
 		
