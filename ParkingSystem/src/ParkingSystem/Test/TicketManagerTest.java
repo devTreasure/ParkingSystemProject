@@ -48,7 +48,6 @@ public class TicketManagerTest {
 	}
 	
 
-
 	@Test
 	public void  deactivatedTicketCannotbeReactivated()
 	{
@@ -60,7 +59,7 @@ public class TicketManagerTest {
 		
 		newticket.deactivatetheTicektStatus();
 		
-		//again re-trying to activate the ticet status
+		//again re-trying to activate the ticket  hence it's status
 		newticket.activatetheTicektStatus();
 		
 		assertEquals(newticket.getTicektStatus(), TicketStatus.Void);
