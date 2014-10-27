@@ -1,7 +1,9 @@
 package ParkingSystem.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ParkingSystem.Entities.EntryGate;
 import ParkingSystem.Entities.ExitGate;
@@ -10,58 +12,66 @@ import ParkingSystem.Entities.GateStatus;
 
 public class GateManagement {
 
-	private Gate gate;
+	private Map<Integer, Gate> gateMovementcollection = new HashMap<Integer, Gate>();
 
-	private List<Gate> gateMovementcollection = new ArrayList<Gate>();
+	// Never assign same gateid between entry and exit gate
+	// i.e if entry gate has id 1 then exit gate must be named with id 11 or
+	// anything other than 1.
 
 	public Gate OpenEntryGate(int gateid) {
-		Gate objGate = new EntryGate(gateid);
-		this.gate = objGate;
-		this.gate.gateStatus = GateStatus.Open;
 
-		gateMovementcollection.add(objGate);
+		Gate entryGate = gateMovementcollection.get(gateid);
+		if (entryGate == null) {
+			entryGate = new EntryGate(gateid);
+			gateMovementcollection.put(gateid, entryGate);
+		}
 
-		return objGate;
-
+		entryGate.gateStatus = GateStatus.Open;
+		return entryGate;
 	}
 
 	public Gate closeEntryGate(int gateid) {
-		Gate objGate = new EntryGate(gateid);
-		this.gate = objGate;
-		this.gate.gateStatus = GateStatus.Close;
 
-		gateMovementcollection.add(objGate);
+		Gate entryGate = gateMovementcollection.get(gateid);
+		if (entryGate == null) {
+			entryGate = new EntryGate(gateid);
+			gateMovementcollection.put(gateid, entryGate);
+			Gate objGate = new EntryGate(gateid);
+		}
 
-		return objGate;
+		entryGate.gateStatus = GateStatus.Close;
+		return entryGate;
 
 	}
 
 	public Gate openExitGate(int gateid) {
-		Gate objGate = new ExitGate(gateid);
-		this.gate = objGate;
-		this.gate.gateStatus = GateStatus.Open;
-
-		gateMovementcollection.add(objGate);
-
-		return objGate;
+		Gate exitGate = gateMovementcollection.get(gateid);
+		if (exitGate == null) {
+			exitGate = new ExitGate(gateid);
+			gateMovementcollection.put(gateid, exitGate);
+		}
+		exitGate.gateStatus = GateStatus.Open;
+		return exitGate;
 	}
 
 	public Gate closeExitGate(int gateid) {
 
-		Gate objGate = new ExitGate(gateid);
-		this.gate = objGate;
-		this.gate.gateStatus = GateStatus.Close;
+		Gate exitGate = gateMovementcollection.get(gateid);
+		if (exitGate == null) {
+			exitGate = new ExitGate(gateid);
+			gateMovementcollection.put(gateid, exitGate);
+		}
 
-		gateMovementcollection.add(objGate);
-
-		return objGate;
+		exitGate.gateStatus = GateStatus.Close;
+		return exitGate;
 	}
 
-	public List<Gate> getGateMovementcollection() {
+	public Map<Integer, Gate> getGateMovementcollection() {
 		return gateMovementcollection;
 	}
 
-	public void setGateMovementcollection(List<Gate> gateMovementcollection) {
+	public void setGateMovementcollection(
+			Map<Integer, Gate> gateMovementcollection) {
 		this.gateMovementcollection = gateMovementcollection;
 	}
 
