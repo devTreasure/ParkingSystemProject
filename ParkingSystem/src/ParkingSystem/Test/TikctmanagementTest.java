@@ -1,4 +1,4 @@
-package ParkingSystem.UI;
+package ParkingSystem.Test;
 
 import static org.junit.Assert.assertEquals;
 
