@@ -130,7 +130,7 @@ public class TicketManager {
 		    	 
 		    	  occupancy.incrementOcccupancy();
 		    	 
-		    	 
+		 
 		    	  
 		   		 Thread ts =new Thread(new Runnable() {
 					

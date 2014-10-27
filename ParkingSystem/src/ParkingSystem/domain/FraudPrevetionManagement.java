@@ -17,15 +17,17 @@ public class FraudPrevetionManagement {
 	Map<String, Gate > multiMap =  new   HashMap<String, Gate >();
 	
 	public Map<Ticket, Gate > ticketgatecollection =  new   HashMap<Ticket, Gate >();
-	
-		
+
 
 	public Map<String, Gate> getMultiMap() {
+		
 		return multiMap;
 	}
 
 	public void setMultiMap(Map<String, Gate> multiMap) {
+		
 		this.multiMap = multiMap;
+		
 	}
 
 	public FraudPrevetionManagement() {
