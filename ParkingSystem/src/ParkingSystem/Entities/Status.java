@@ -1,7 +1,7 @@
 package ParkingSystem.Entities;
 
 public class Status {
-	
+
 	private Boolean status;
 	private String message;
 
