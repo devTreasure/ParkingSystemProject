@@ -12,7 +12,18 @@ import ParkingSystem.Entities.GateStatus;
 
 public class GateManagement {
 
+	public Gate getGate() {
+		return gate;
+	}
+
+	public void setGate(Gate gate) {
+		this.gate = gate;
+	}
+
 	private Map<Integer, Gate> gateMovementcollection = new HashMap<Integer, Gate>();
+	
+	//No gate assigned initially
+	public Gate gate = new Gate(0);
 
 	// Never assign same gateid between entry and exit gate
 	// i.e if entry gate has id 1 then exit gate must be named with id 11 or
