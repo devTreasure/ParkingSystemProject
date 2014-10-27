@@ -1,5 +1,6 @@
 package ParkingSystem.UI;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.swing.JFrame;
@@ -9,11 +10,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
-import ParkingSystem.Entities.CreditCard;
 import ParkingSystem.Entities.Gate;
-import ParkingSystem.Entities.GateStatus;
+import ParkingSystem.Entities.ParkingStatus;
 import ParkingSystem.Entities.Status;
-import ParkingSystem.Entities.Ticket;
 import ParkingSystem.Entities.TicketStatus;
 import ParkingSystem.domain.GateManagement;
 import ParkingSystem.domain.PaymentManagement;
@@ -23,19 +22,19 @@ import ParkingSystem.domain.TicketManager;
 public class parkingGUI  extends  JFrame 
 {
 		
-	    javax.swing.JButton jButton1;
-	    javax.swing.JButton jButton2;
-	    javax.swing.JButton jButton3;
-	    javax.swing.JButton jButton4;
-	    javax.swing.JButton jButton5;
-	    javax.swing.JButton jButton7;
+	    public javax.swing.JButton buttonPrintTicket;
+	    javax.swing.JButton buttonPayment;
+	    javax.swing.JButton buttonExit;
+	    javax.swing.JButton buttonOpenGate;
+	    javax.swing.JButton buttonClosegate;
+	    javax.swing.JButton buttonFarecalc;
 	    javax.swing.JLabel jLabel1;
 	    javax.swing.JTextField jTextField1;
 	    javax.swing.JTextField jTextField2;
-	    javax.swing.JTextField jTextField3;
+	    public javax.swing.JTextField jTextField3;
 	    javax.swing.JLabel jLabel3;
 	    javax.swing.JLabel jLabel2;
-	    javax.swing.JLabel jLabel4;
+	    public javax.swing.JLabel jLabel4;
 	    javax.swing.JLabel jLabel5;
 	    javax.swing.JLabel jLabel6;
 	    javax.swing.JLabel jLabel7;
@@ -45,37 +44,41 @@ public class parkingGUI  extends  JFrame
 	    javax.swing.JLabel jLabel11;
 	    javax.swing.JLabel jLabel12;
 	    javax.swing.JLabel jLabel14;
-	    javax.swing.JTextField jTextField4;
-	    javax.swing.JTextField jTextField5;
-	    javax.swing.JTextField jTextField6;
-	    javax.swing.JTextField jTextField7;
+	    public javax.swing.JTextField jTextField4;
+	    public javax.swing.JTextField jTextField5;
+	    public javax.swing.JTextField jTextField6;
+	    public javax.swing.JTextField jTextField7;
 	    javax.swing.JLabel jLabel13;
 	    javax.swing.JTextField jTextField8;
 	    javax.swing.JTextField jTextField9;
-	    javax.swing.JTextField jTextField10;
-	    javax.swing.JTextField jTextField11;
-	    javax.swing.JTextField jTextField12;
+	    public javax.swing.JTextField jTextField10;
+	    public javax.swing.JTextField jTextField11;
+	    public javax.swing.JTextField jTextField12;
 	    java.awt.Label label1;
 	    java.awt.Label label2;
 	    java.awt.Label label3;
 	    java.awt.Label label4;
-	    java.awt.Label label5;
+	    public java.awt.Label label5;
 	    java.awt.Label label6;
-	    javax.swing.JButton jButton6;
+	    javax.swing.JButton buttonGate1;
 
-	    javax.swing.JButton jButton8;
-	    javax.swing.JButton jButton9;
+	    javax.swing.JButton buttonGate2;
+	    javax.swing.JButton buttonGate3;
 	    
-	    private java.awt.Choice choice1;
+	    public java.awt.Choice choice1;
 
 	    TicketManager  objticketmanager=new  TicketManager();
 	    
-  	    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {    
+  	    private void openGateActionPerformed(java.awt.event.ActionEvent evt) {    
 	    	
 	    	if(objticketmanager.ticket.getTicektStatus()==TicketStatus.Active )
 	    	{
 	    		objticketmanager.gate =objticketmanager.gatemanagement.OpenEntryGate(1);
 	    		
+	    		//added for fraud prevention check
+	    		objticketmanager.fraudManager.ticketgatecollection.put(objticketmanager.ticket,objticketmanager.gate);
+	    
+	    
 	    	   jTextField3.setText(objticketmanager.gate.gateStatus.toString());
 	    	}
 	    	else
@@ -87,30 +90,7 @@ public class parkingGUI  extends  JFrame
 	        // TODO add your =handling code here:
 	    }                                        
 
-	    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	        // TODO add your handling code here:
-	    	
-	    	
-	     	if(objticketmanager.gate.gateStatus==GateStatus.Open)
-	    	{
-	     		objticketmanager.gate.gateStatus=GateStatus.Close;
-	    	    jTextField3.setText(objticketmanager.gate.gateStatus.toString());
-	    	}
-	      	    	
-	    	if(objticketmanager.gate.gateStatus==GateStatus.Open)
-	    	{
-	    		objticketmanager.gate.gateStatus=GateStatus.Close;
-	    	    jTextField3.setText(objticketmanager.gate.gateStatus.toString());
-	    	}
-	    	else
-	    	{
-	    		 jTextField3.setText(objticketmanager.gate.gateStatus.toString());
-	    	}
-    		  
-	    }
-	    
-	    
-	    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {    
+	    private void exitActionPerformed(java.awt.event.ActionEvent evt) {    
 	    	
 	    	
 	    	UUID  ticketID = null;
@@ -131,7 +111,7 @@ public class parkingGUI  extends  JFrame
 	      // Gate g=objticketmanager.gatemanagement.ExitGate(1);
 	    }
 
-		public void jButton2ActionPerformed(ActionEvent evt) {
+		public void paymentActionPerformed(ActionEvent evt) {
 			// TODO Auto-generated method stub.
 			//  
 	   
@@ -240,124 +220,77 @@ public class parkingGUI  extends  JFrame
 		     
 		  if(validentry)
 		  {
-		      
-			  CreditCard  crdeitcard=new CreditCard();
-			  crdeitcard.setCCNumner(jTextField4.getText());
-			  crdeitcard.setExpiryDate(jTextField6.getText());
-			  crdeitcard.setCvvNumber( Integer.parseInt(jTextField7.getText()) );
-	 
-			  //associating ticket id to credit card id 
 			  
-			  crdeitcard.setTicketID(objticketmanager.ticket.getTicektID());
-			
-			  objticketmanager.paymanager.Pay(objticketmanager.ticket);
-				
-				String amount= String.valueOf(objticketmanager.ticket.getTicketAmount());
-				jTextField5.setText(amount);
+			  objticketmanager.getCreditcard().setCCNumner(jTextField4.getText());
+			  objticketmanager.getCreditcard().setExpiryDate(jTextField6.getText());
+		      objticketmanager.getCreditcard().setCvvNumber( Integer.parseInt(jTextField7.getText()) );
+		      
+			  float amount=  objticketmanager.processPayment( objticketmanager.ticket);
+			  String strAmount= String.valueOf(amount);
+			  
+		     jTextField5.setText(strAmount);
 		  }
 			
 		}
-	  
-	
-	   public  void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {     
-		   
-		   
-		   if(objticketmanager.occupancy.isParkingfull())
-		      {
-		    	  jButton1.setVisible(false);
-		      }
-		   
-	        // TODO add your handling code here:
+
+		public  void printTicketActionPerformed(java.awt.event.ActionEvent evt) {     
 		   
 		    jLabel4.setText("Printing Ticket...Please Wait");
-		  
+			
+		    if( objticketmanager.occupancy.isParkingfull())
+		      {
+		    	 buttonPrintTicket.setVisible(false);
+		      }
 		   
-		    final Ticket ticket = objticketmanager.ticketmager.createTicket();
-		  
-		      ticket.activatetheTicektStatus();
-		      ticket.generateTicketID();
+		   
+		      ParkingStatus  parkingStatus=  objticketmanager.occupancy.currentparkingStatus();
+		      jTextField2.setText(parkingStatus.toString());
 		      
-		      if(ticket!=null && ticket.getTicektStatus()==TicketStatus.Active)
-		      {
-		    	  objticketmanager.ticket=ticket;
-		    	 
-		    	  objticketmanager. occupancy.incrementOcccupancy();
-		    	 
-		    	 String currentCount= Integer.toString(objticketmanager.occupancy.currentParkingOccupancy) ;
-		    	 
-		    	 label5.setText(currentCount);
+		       objticketmanager.printTicketOperation(this);
 		    	  
-		   		 Thread ts =new Thread(new Runnable() {
+		       //above method has delay 
+		       
+			   jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
+			   jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString()); 
+			   jTextField12.setText(objticketmanager.ticket.getEntryTime().toString()); 
+			   jLabel4.setText("Success..Collect the ticket from slot");
+		      
+			   String currentCount= Integer.toString(objticketmanager.occupancy.currentParkingOccupancy) ;
+		    	 
+		       label5.setText(currentCount);
+		       
+		       
+		       if(objticketmanager.ticket!=null && objticketmanager.ticket.getTicektStatus()==TicketStatus.Active)
+			      {
+			    	
+			   		
+			   		choice1.add(objticketmanager.ticket.getTicketID().toString());
+			      }
 					
-					@Override
-					public void run() {
-						
-						try {
-						   Thread.sleep(2000);
-						   
-						    jTextField10.setText(ticket.getTicketID().toString());
-						    jTextField11.setText(ticket.getTicektStatus().toString()); 
-						    jTextField12.setText(ticket.getEntryTime().toString()); 
-							jLabel4.setText("Success..Collect the ticket from slot");
-						}
-						catch (InterruptedException e) {
+			      else
+			      {
+			    	  jLabel4.setText("Error...Please Retry");
+			      }
+	    }
 
-						}
-						
-						
-					}
-				});
-		   		
-		   		ts.start();
-		   		
-		   		
-		   		choice1.add(ticket.getTicketID().toString());
-		      }
-				
-		      else
-		      {
-		    	  jLabel4.setText("Error...Please Retry");
-		      }
-		    	  
-	 
-		      
-		  
-	    }        
-	   
-	   private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	private void gate1selectionActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	        // TODO add your handling code here:
 	    }                                        
 
-	    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	    private void gate2selectionActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	        // TODO add your handling code here:
 	    }                                        
 
-	    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	    private void gate3SelectionActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	        // TODO add your handling code here:
 	    }                                        
 
 	   
-	   private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	        // TODO add your handling code here:
-			  Calendar   c=Calendar.getInstance();
-				
-		      java.util.Date currenttime=c.getTime();
-			
-		      objticketmanager.ticket.setExitTime(currenttime);
-		      objticketmanager.paymanager.setHourlyRate(11);
-			  
-			  long rate=  objticketmanager.paymanager.calculateParkingDuration(objticketmanager.ticket);
-			  objticketmanager.ticket.setTicketAmount(rate);
-			
-			  
-			//  objticketmanager.gatemanagement.ExitGate(1);
-		      
-		     jTextField5.setText(Long.toString(rate));
-	    }  
-	  
-	  
-	   
-	   private  void IntiliazeWindows() {
+	   private void calculatefareActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	        objticketmanager.calculateFare(this);
+	    }
+
+	private  void IntiliazeWindows() {
 			
 			
 		 	    jLabel3 = new javax.swing.JLabel();
@@ -370,10 +303,10 @@ public class parkingGUI  extends  JFrame
 		        jTextField12 = new javax.swing.JTextField();
 		        jLabel14 = new javax.swing.JLabel();
 		        jTextField2 = new javax.swing.JTextField();
-		        jButton1 = new javax.swing.JButton();
-		        jButton2 = new javax.swing.JButton();
-		        jButton3 = new javax.swing.JButton();
-		        jButton7 = new javax.swing.JButton();
+		        buttonPrintTicket = new javax.swing.JButton();
+		        buttonPayment = new javax.swing.JButton();
+		        buttonExit = new javax.swing.JButton();
+		        buttonFarecalc = new javax.swing.JButton();
 		        jLabel2 = new javax.swing.JLabel();
 		        jLabel3 = new javax.swing.JLabel();
 		        jLabel4 = new javax.swing.JLabel();
@@ -381,8 +314,8 @@ public class parkingGUI  extends  JFrame
 		        jLabel6 = new javax.swing.JLabel();
 		        jLabel7 = new javax.swing.JLabel();
 		        jLabel8= new javax.swing.JLabel();
-		        jButton4 = new javax.swing.JButton();
-		        jButton5 = new javax.swing.JButton();
+		        buttonOpenGate = new javax.swing.JButton();
+		        buttonClosegate = new javax.swing.JButton();
 		        jTextField3 = new javax.swing.JTextField();
 		  
 		        jLabel9 = new javax.swing.JLabel();
@@ -403,25 +336,26 @@ public class parkingGUI  extends  JFrame
 		        label4 = new java.awt.Label();
 		        label5 = new java.awt.Label();
 		        label6 = new java.awt.Label();
-		        jButton6 = new javax.swing.JButton();
-		        jButton8 = new javax.swing.JButton();
-		        jButton9 = new javax.swing.JButton();
+		        buttonGate1 = new javax.swing.JButton();
+		        buttonGate2 = new javax.swing.JButton();
+		        buttonGate3 = new javax.swing.JButton();
 		        jLabel14 = new javax.swing.JLabel();
 		        
 		        choice1 = new java.awt.Choice();
 		        
 		        choice1.add("Select the ticket");
 		        
-		        jButton5.setText("Close Gate");
+		        buttonClosegate.setText("Close Gate");
 		        
-		        jButton5.addActionListener(new java.awt.event.ActionListener() {
+		        buttonClosegate.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton5ActionPerformed(evt);
+		                objticketmanager.gateCloseOpeation(objticketmanager.gate);
+		                jTextField3.setText(objticketmanager.gate.gateStatus.toString());
 		            }
 		        });
 		        
 		        
-		        jButton3.setText("Exit");
+		        buttonExit.setText("Exit");
 		        jLabel4.setText("Ticket :");
 		        
 		        jLabel5.setText("Ticket ID");
@@ -438,33 +372,33 @@ public class parkingGUI  extends  JFrame
 
 		        jLabel2.setText("Parking Status");
 
-		        jButton1.setText("Print Ticket");
-		        jButton1.setToolTipText("Print Ticket");
+		        buttonPrintTicket.setText("Print Ticket");
+		        buttonPrintTicket.setToolTipText("Print Ticket");
 		        
-		        jButton1.addActionListener(new java.awt.event.ActionListener() {
+		        buttonPrintTicket.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton1ActionPerformed(evt);
+		                printTicketActionPerformed(evt);
 		            }
 		        });
 
 		        
 		       
-		        jButton2.setText("Payment");
-		        jButton2.setToolTipText("");
-		        jButton2.setActionCommand("Pay");
-		        jButton2.addActionListener(new java.awt.event.ActionListener() {
+		        buttonPayment.setText("Payment");
+		        buttonPayment.setToolTipText("");
+		        buttonPayment.setActionCommand("Pay");
+		        buttonPayment.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton2ActionPerformed(evt);
+		                paymentActionPerformed(evt);
 		            }
 
 				
 		        });
 
 
-		        jButton3.setText("Exit");
-		        jButton3.addActionListener(new java.awt.event.ActionListener() {
+		        buttonExit.setText("Exit");
+		        buttonExit.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		            	jButton3ActionPerformed(evt);
+		            	exitActionPerformed(evt);
 		            }
 		        });
 		      
@@ -472,19 +406,21 @@ public class parkingGUI  extends  JFrame
 		    
 		        
 		        jLabel4.setText("Ticket: ");
-		        jButton4.setText("Open Gate");
-		        jButton4.addActionListener(new java.awt.event.ActionListener() {
+		        buttonOpenGate.setText("Open Gate");
+		        buttonOpenGate.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton4ActionPerformed(evt);
+		                openGateActionPerformed(evt);
 		            }
 		        });
 
 		        
 		        
-		        jButton5.setText("Close Gate");
-		        jButton5.addActionListener(new java.awt.event.ActionListener() {
+		        buttonClosegate.setText("Close Gate");
+		        buttonClosegate.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton5ActionPerformed(evt);
+		               // objticketmanager.gateCloseOpeation(this, evt);
+		            	objticketmanager.gateCloseOpeation(objticketmanager.gate);
+		            	
 		            }
 		        });
 
@@ -510,10 +446,10 @@ public class parkingGUI  extends  JFrame
 
 		        label1.setText("Status");
 
-		        jButton7.setText("Calculate Fare");
-		        jButton7.addActionListener(new java.awt.event.ActionListener() {
+		        buttonFarecalc.setText("Calculate Fare");
+		        buttonFarecalc.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton7ActionPerformed(evt);
+		                calculatefareActionPerformed(evt);
 		            }
 		        });
 
@@ -538,26 +474,26 @@ public class parkingGUI  extends  JFrame
 		 
 		        label6.setText("Parking Count");
 		        
-		        jButton6.setText("Gate1");
-		        jButton6.addActionListener(new java.awt.event.ActionListener() {
+		        buttonGate1.setText("Gate1");
+		        buttonGate1.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton6ActionPerformed(evt);
+		                gate1selectionActionPerformed(evt);
 		            }
 		        });
 
-		        jButton8.setText("Gate2");
-		        jButton8.setToolTipText("");
-		        jButton8.addActionListener(new java.awt.event.ActionListener() {
+		        buttonGate2.setText("Gate2");
+		        buttonGate2.setToolTipText("");
+		        buttonGate2.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton8ActionPerformed(evt);
+		                gate2selectionActionPerformed(evt);
 		            }
 		        });
 
-		        jButton9.setText("Gate3");
-		        jButton9.setToolTipText("");
-		        jButton9.addActionListener(new java.awt.event.ActionListener() {
+		        buttonGate3.setText("Gate3");
+		        buttonGate3.setToolTipText("");
+		        buttonGate3.addActionListener(new java.awt.event.ActionListener() {
 		            public void actionPerformed(java.awt.event.ActionEvent evt) {
-		                jButton9ActionPerformed(evt);
+		                gate3SelectionActionPerformed(evt);
 		            }
 		        });
 
@@ -584,12 +520,12 @@ public class parkingGUI  extends  JFrame
 		                        .addGap(9, 9, 9)))
 		                .addGap(18, 18, 18)
 		                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-		                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                    .addComponent(buttonExit, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                    .addComponent(buttonPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-		                        .addComponent(jButton7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		                        .addComponent(buttonFarecalc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		                        .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
 		                        .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
 		                        .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
@@ -612,22 +548,22 @@ public class parkingGUI  extends  JFrame
 		                    .addGroup(layout.createSequentialGroup()
 		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		                            .addGroup(layout.createSequentialGroup()
-		                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                                .addComponent(buttonOpenGate, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-		                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+		                                .addComponent(buttonClosegate, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
 		                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-		                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                                .addComponent(buttonPrintTicket, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
 		                            .addGroup(layout.createSequentialGroup()
 		                                .addGap(3, 3, 3)
-		                                .addComponent(jButton6)
+		                                .addComponent(buttonGate1)
 		                                .addGap(18, 18, 18)
-		                                .addComponent(jButton8)
+		                                .addComponent(buttonGate2)
 		                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-		                                .addComponent(jButton9)))
+		                                .addComponent(buttonGate3)))
 		                        .addGap(58, 58, 58)
 		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		                            .addGroup(layout.createSequentialGroup()
@@ -670,12 +606,12 @@ public class parkingGUI  extends  JFrame
 		                    .addGroup(layout.createSequentialGroup()
 		                        .addGap(15, 15, 15)
 		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-		                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-		                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-		                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                            .addComponent(buttonGate1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                            .addComponent(buttonGate2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+		                            .addComponent(buttonGate3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
 		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-		                        .addComponent(jButton1)
+		                        .addComponent(buttonPrintTicket)
 		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 		                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
@@ -704,8 +640,8 @@ public class parkingGUI  extends  JFrame
 		                                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 		                                .addGap(18, 18, 18)
 		                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-		                                    .addComponent(jButton4)
-		                                    .addComponent(jButton5))
+		                                    .addComponent(buttonOpenGate)
+		                                    .addComponent(buttonClosegate))
 		                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 		                                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 		                            .addGroup(layout.createSequentialGroup()
@@ -720,7 +656,7 @@ public class parkingGUI  extends  JFrame
 		                            .addComponent(choice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                            .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-		                        .addComponent(jButton7)
+		                        .addComponent(buttonFarecalc)
 		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 		                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -742,13 +678,13 @@ public class parkingGUI  extends  JFrame
 		                            .addComponent(jLabel12)
 		                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 		                        .addGap(25, 25, 25)
-		                        .addComponent(jButton2)
+		                        .addComponent(buttonPayment)
 		                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 		                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
 		                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 		                            .addComponent(jLabel13))
 		                        .addGap(18, 18, 18)
-		                        .addComponent(jButton3)
+		                        .addComponent(buttonExit)
 		                        .addContainerGap(23, Short.MAX_VALUE))
 		                    .addGroup(layout.createSequentialGroup()
 		                        .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
