@@ -1,4 +1,4 @@
-package ParkingSystem.domain;
+package ParkingSystem.controller;
 
 import java.awt.event.ActionEvent;
 import java.util.Calendar;

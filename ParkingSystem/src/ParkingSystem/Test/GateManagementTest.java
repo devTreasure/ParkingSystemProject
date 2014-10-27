@@ -3,7 +3,7 @@ package ParkingSystem.Test;
 import static org.junit.Assert.*;
 import ParkingSystem.Entities.Gate;
 import ParkingSystem.Entities.GateStatus;
-import ParkingSystem.domain.GateManagement;
+import ParkingSystem.controller.GateManagement;
 
 import org.junit.Test;
 

@@ -7,7 +7,7 @@ import java.io.Console;
 import org.junit.Test;
 
 import ParkingSystem.Entities.ParkingStatus;
-import ParkingSystem.domain.OccupancyManagement;
+import ParkingSystem.controller.OccupancyManagement;
 
 public class OccupancyManagementTest {
 

@@ -17,10 +17,10 @@ import ParkingSystem.Entities.GateStatus;
 import ParkingSystem.Entities.ParkingStatus;
 import ParkingSystem.Entities.Status;
 import ParkingSystem.Entities.TicketStatus;
-import ParkingSystem.domain.GateManagement;
-import ParkingSystem.domain.PaymentManagement;
-import ParkingSystem.domain.TicketManagement;
-import ParkingSystem.domain.TicketManager;
+import ParkingSystem.controller.GateManagement;
+import ParkingSystem.controller.PaymentManagement;
+import ParkingSystem.controller.TicketManagement;
+import ParkingSystem.controller.TicketManager;
 
 public class parkingGUI extends JFrame {
 

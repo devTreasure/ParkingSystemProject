@@ -1,4 +1,4 @@
-package ParkingSystem.domain;
+package ParkingSystem.controller;
 
 import java.util.*;
 

@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import ParkingSystem.Entities.Ticket;
 import ParkingSystem.Entities.TicketStatus;
-import ParkingSystem.domain.TicketManagement;
+import ParkingSystem.controller.TicketManagement;
 
 public class TicketManagerTest {
 
