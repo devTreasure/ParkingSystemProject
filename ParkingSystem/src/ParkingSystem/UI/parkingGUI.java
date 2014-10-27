@@ -74,7 +74,8 @@ public class parkingGUI  extends  JFrame
 	    	
 	    	if(objticketmanager.ticket.getTicektStatus()==TicketStatus.Active )
 	    	{
-	    		objticketmanager.gate =objticketmanager.gatemanagement.OpenGate(1);
+	    		objticketmanager.gate =objticketmanager.gatemanagement.OpenEntryGate(1);
+	    		
 	    	   jTextField3.setText(objticketmanager.gate.gateStatus.toString());
 	    	}
 	    	else
@@ -349,7 +350,7 @@ public class parkingGUI  extends  JFrame
 			  objticketmanager.ticket.setTicketAmount(rate);
 			
 			  
-			  objticketmanager.gatemanagement.ExitGate(1);
+			//  objticketmanager.gatemanagement.ExitGate(1);
 		      
 		     jTextField5.setText(Long.toString(rate));
 	    }  
