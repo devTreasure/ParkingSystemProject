@@ -1,8 +1,6 @@
 package ParkingSystem.Test;
 
-import static org.junit.Assert.*;
-
-import java.io.Console;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 

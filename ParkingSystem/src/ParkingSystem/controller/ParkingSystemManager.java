@@ -1,17 +1,12 @@
 package ParkingSystem.controller;
 
-import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.util.UUID;
 
-import javax.swing.JOptionPane;
-
 import ParkingSystem.Entities.CreditCard;
 import ParkingSystem.Entities.Gate;
-import ParkingSystem.Entities.GateStatus;
 import ParkingSystem.Entities.Status;
 import ParkingSystem.Entities.Ticket;
-import ParkingSystem.Entities.TicketStatus;
 import ParkingSystem.UI.parkingGUI;
 
 public class ParkingSystemManager {

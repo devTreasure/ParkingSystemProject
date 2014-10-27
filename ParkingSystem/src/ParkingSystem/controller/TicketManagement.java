@@ -1,6 +1,7 @@
 package ParkingSystem.controller;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import ParkingSystem.Entities.Gate;
 import ParkingSystem.Entities.Ticket;

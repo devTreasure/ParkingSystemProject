@@ -1,26 +1,22 @@
 package ParkingSystem.UI;
 
+import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.util.Calendar;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.swing.JFrame;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import ParkingSystem.Entities.EntryGate;
-import ParkingSystem.Entities.Gate;
 import ParkingSystem.Entities.GateStatus;
 import ParkingSystem.Entities.ParkingStatus;
 import ParkingSystem.Entities.Status;
 import ParkingSystem.Entities.TicketStatus;
 import ParkingSystem.controller.GateManagement;
+import ParkingSystem.controller.ParkingSystemManager;
 import ParkingSystem.controller.PaymentManagement;
 import ParkingSystem.controller.TicketManagement;
-import ParkingSystem.controller.ParkingSystemManager;
 
 public class parkingGUI extends JFrame {
 

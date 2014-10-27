@@ -1,7 +1,6 @@
 package ParkingSystem.Entities;
 
-import java.util.*;
-import java.util.Date;
+import java.util.UUID;
 
 public class CreditCard {
 
