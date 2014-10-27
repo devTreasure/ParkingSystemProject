@@ -1,8 +1,36 @@
 package ParkingSystem.domain;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import ParkingSystem.Entities.Gate;
 import ParkingSystem.Entities.Ticket;
 
 public class FraudPrevetionManagement {
+	
+	private List<Ticket> ticketcollection  =   new ArrayList<Ticket>();
+	
+	private List<Gate> gatecollection  =   new ArrayList<Gate>();
+	
+	Map<String, Gate > multiMap =  new   HashMap<String, Gate >();
+	
+	public Map<Ticket, Gate > ticketgatecollection =  new   HashMap<Ticket, Gate >();
+	
+	
+
+
+
+	
+
+	public Map<String, Gate> getMultiMap() {
+		return multiMap;
+	}
+
+	public void setMultiMap(Map<String, Gate> multiMap) {
+		this.multiMap = multiMap;
+	}
 
 	public FraudPrevetionManagement() {
 
@@ -29,5 +57,13 @@ public class FraudPrevetionManagement {
 	public Boolean isValidTicet(Ticket t) {
 
 		return false;
+	}
+
+	public List<Ticket> getTicketcollection() {
+		return ticketcollection;
+	}
+
+	public void setTicketcollection(List<Ticket> ticketcollection) {
+		this.ticketcollection = ticketcollection;
 	}
 }
