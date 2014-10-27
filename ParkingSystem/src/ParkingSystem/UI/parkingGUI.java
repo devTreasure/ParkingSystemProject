@@ -20,7 +20,7 @@ import ParkingSystem.Entities.TicketStatus;
 import ParkingSystem.controller.GateManagement;
 import ParkingSystem.controller.PaymentManagement;
 import ParkingSystem.controller.TicketManagement;
-import ParkingSystem.controller.TicketManager;
+import ParkingSystem.controller.ParkingSystemManager;
 
 public class parkingGUI extends JFrame {
 
@@ -69,7 +69,7 @@ public class parkingGUI extends JFrame {
 
 	public java.awt.Choice choice1;
 
-	TicketManager objticketmanager = new TicketManager();
+	ParkingSystemManager objticketmanager = new ParkingSystemManager();
 
 	private void openGateActionPerformed(java.awt.event.ActionEvent evt) {
 

@@ -14,7 +14,7 @@ import ParkingSystem.Entities.Ticket;
 import ParkingSystem.Entities.TicketStatus;
 import ParkingSystem.UI.parkingGUI;
 
-public class TicketManager {
+public class ParkingSystemManager {
 
 	public GateManagement gatemanagement = new GateManagement();
 	public TicketManagement ticketmager = new TicketManagement();
@@ -41,7 +41,7 @@ public class TicketManager {
 		this.gate = gate;
 	}
 */
-	public TicketManager() {
+	public ParkingSystemManager() {
 
 	}
 
@@ -177,7 +177,7 @@ public class TicketManager {
 		return ticektAmount;
 	}
 
-	public TicketManager(parkingGUI parkingGUI) {
+	public ParkingSystemManager(parkingGUI parkingGUI) {
 
 	}
 
