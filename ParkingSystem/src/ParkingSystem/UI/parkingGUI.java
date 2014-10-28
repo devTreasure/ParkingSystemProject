@@ -139,6 +139,10 @@ public class parkingGUI extends JFrame {
 		// Gate g=objticketmanager.gatemanagement.ExitGate(1);
 	}
 
+	
+	
+	   
+	   
 	public void paymentActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub.
 		//
@@ -325,6 +329,8 @@ public class parkingGUI extends JFrame {
 		
 		
 	}
+	
+	
 	private void ReportActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
 		  //Report type enum need to be used for replacing integer arg
@@ -464,6 +470,8 @@ public class parkingGUI extends JFrame {
 		jLabel7.setText("Entry time");
 
 		// setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		
+		 setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
 		jLabel1.setText("PlateID");
 
@@ -587,6 +595,8 @@ public class parkingGUI extends JFrame {
 		jLabel14.setText("Select Entry gate");
 		jLabel14.setToolTipText("");
 
+		
+		
 		
 		 jLabel15.setText("Reports");
 
@@ -817,6 +827,10 @@ public class parkingGUI extends JFrame {
 
 
 		objticketmanager.occupancy.setParkingCapacity(10);
+		
+		ParkingStatus parkingStatus = objticketmanager.occupancy
+				.currentparkingStatus();
+		jTextField2.setText(parkingStatus.toString());
 
 	}
 
