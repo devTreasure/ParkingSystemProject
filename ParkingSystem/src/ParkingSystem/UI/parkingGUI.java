@@ -265,9 +265,9 @@ public class parkingGUI extends JFrame {
 			buttonPrintTicket.setVisible(false);
 		}
 
-		ParkingStatus parkingStatus = objticketmanager.occupancy
-				.currentparkingStatus();
-		jTextField2.setText(parkingStatus.toString());
+	
+		
+	
 
 		if (objticketmanager.gatemanagement.gate.GateId == 1
 				|| objticketmanager.gatemanagement.gate.GateId == 2
@@ -275,7 +275,10 @@ public class parkingGUI extends JFrame {
 			jLabel4.setText("Printing Ticket...Please Wait");
 
 			objticketmanager.printTicketOperation();
-
+			
+			ParkingStatus parkingStatus = objticketmanager.occupancy.currentparkingStatus();
+			jTextField2.setText(parkingStatus.toString());
+			
 			jTextField10.setText(objticketmanager.ticket.getTicketID()
 					.toString());
 			jTextField11.setText(objticketmanager.ticket.getTicektStatus()
@@ -296,6 +299,8 @@ public class parkingGUI extends JFrame {
 		// above method has delay
 		if (objticketmanager.ticket != null
 				&& objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
+			
+			
 
 			choice1.add(objticketmanager.ticket.getTicketID().toString());
 		}
@@ -826,7 +831,7 @@ public class parkingGUI extends JFrame {
 	        jLabel7.getAccessibleContext().setAccessibleName("lblticketStatus");
 
 
-		objticketmanager.occupancy.setParkingCapacity(10);
+		objticketmanager.occupancy.setParkingCapacity(2);
 		
 		ParkingStatus parkingStatus = objticketmanager.occupancy
 				.currentparkingStatus();
