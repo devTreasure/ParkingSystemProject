@@ -1,16 +1,18 @@
 package ParkingSystem.Reports;
 
+import ParkingSystem.Entities.ReportType;
+
 public class ReportCreator {
 	
-	public static Report  getReport(int reportType)
+	public static Report  getReport(ReportType reportType)
 	{
-	  if(reportType==1)
+	  if(reportType==ReportType.Hourly)
 		  return  new HourlyReport();
-	  else if(reportType==2)
+	  else if(reportType==reportType.Daily)
 		  return  new DailyReport();
-	  else if(reportType==3)
+	  else if(reportType==ReportType.Weekly)
 		  return new WeeklyReport();
-	  else if(reportType==4)
+	  else if(reportType==ReportType.Monthly)
 		  return new MonthlyReport();
 	  else
 		  return new  MonthlyReport();

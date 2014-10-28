@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import ParkingSystem.Entities.EntryGate;
 import ParkingSystem.Entities.GateStatus;
 import ParkingSystem.Entities.ParkingStatus;
+import ParkingSystem.Entities.ReportType;
 import ParkingSystem.Entities.Status;
 import ParkingSystem.Entities.Ticket;
 import ParkingSystem.Entities.TicketStatus;
@@ -326,9 +327,22 @@ public class parkingGUI extends JFrame {
 	}
 	private void ReportActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
-		  //Report type enum need to be used for replacing intteger arg
+		  //Report type enum need to be used for replacing integer arg
+		 ReportType reportType = null;
+	
           System.out.print(choiseReport.getSelectedItem());
-		  List<Ticket> reportData = objticketmanager.reportManagement.generateReport(1);
+          
+         String choiceSelection=choiseReport.getSelectedItem();
+         
+         if(choiceSelection=="Hourly")
+        	 reportType=ReportType.Hourly;
+         else if(choiceSelection=="Daily")
+        	 reportType=ReportType.Daily;
+         else if(choiceSelection=="Weely")
+    	     reportType=ReportType.Weekly;
+        
+          
+		  List<Ticket> reportData = objticketmanager.reportManagement.generateReport(reportType);
           
 		  String[] columnNames = {"TicketID",
 	                "Entry Time ",
@@ -347,38 +361,22 @@ public class parkingGUI extends JFrame {
 		  }
 		  
 		  
-//			Object[][] data = {
-//				    {"Kathy", "Smith",
-//				     "Snowboarding", new Integer(5), new Boolean(false)},
-//				    {"John", "Doe",
-//				     "Rowing", new Integer(3), new Boolean(true)},
-//				    {"Sue", "Black",
-//				     "Knitting", new Integer(2), new Boolean(false)},
-//				    {"Jane", "White",
-//				     "Speed reading", new Integer(20), new Boolean(true)},
-//				    {"Joe", "Brown",
-//				     "Pool", new Integer(10), new Boolean(false)}
-//				};
 			
 		  JDialog dialog = new JDialog();
 		  dialog.setBounds(500, 500,800,700);
 		  dialog.setLayout(new GridLayout());
 	   	  dialog.setEnabled(true);
 		  dialog.setModal(true);
-		 
 	
-		 
-		 
-		// dialog.getContentPane().add(ch);
 		 
 		 
 		 
 			
 			dialog.getContentPane().add(new JTable(data, columnNames));
-			//JTable table = 
+			
 		 
 		 dialog.setVisible(true);
-		 //dialog.pack();
+		
 		 dialog.show();
     }   
 	
@@ -441,7 +439,7 @@ public class parkingGUI extends JFrame {
 		
 		
 		 choiseReport.add("Hourly");
-		 choiseReport.add("Daiily");
+		 choiseReport.add("Daily");
 		 choiseReport.add("Weekley");
 		 choiseReport.add("Monthly");
 

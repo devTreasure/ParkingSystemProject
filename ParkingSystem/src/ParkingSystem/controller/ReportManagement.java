@@ -2,6 +2,7 @@ package ParkingSystem.controller;
 
 import java.util.List;
 
+import ParkingSystem.Entities.ReportType;
 import ParkingSystem.Entities.Ticket;
 import ParkingSystem.Reports.ReportCreator;
 
@@ -14,7 +15,7 @@ public class ReportManagement {
 		this.ticketManagement = ticketManagement;
 	}
 
-	public List<Ticket> generateReport(int reportType)
+	public List<Ticket> generateReport(ReportType reportType)
 	{
 		List<Ticket> allTickets = ticketManagement.getTicketcollection();
 		
