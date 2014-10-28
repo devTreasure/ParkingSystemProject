@@ -21,6 +21,8 @@ public class OccupancyManagementTest {
 				objoccupancymanager.currentparkingStatus());
 
 	}
+	
+	
 
 	@Test
 	public void IfparkingIsNotFullDisplayParkingStatusOpen() {
@@ -68,17 +70,32 @@ public class OccupancyManagementTest {
 	}
 	
 	@Test
-	public void ParkingFullorAvailblemethodMusttrirnCOrrectFlag()
+	public void ParkingIsFullWhenOccupancyIsEqualToCurrentParkingCapacity()
 	{
 		OccupancyManagement o=new OccupancyManagement();
 		o.setCurrentParking(5);
-		o.currentParkingOccupancy=5;
+		o.setParkingCapacity(5);
 		assertEquals(true,o.isParkingfull());	
 		
 		
 		
+	}
+	
+
+	@Test
+	public void ParkingIsNotFullWhenOccupancyIsLesThanToCurrentParkingCapacity()
+	{
+		OccupancyManagement o=new OccupancyManagement();
+		o.setCurrentParking(4);
+		o.setParkingCapacity(5);
+		assertEquals(false,o.isParkingfull());	
+		
+		
 		
 	}
+	
+	
+	
 	
 
 }
