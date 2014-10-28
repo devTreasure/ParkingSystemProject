@@ -17,6 +17,8 @@ public class ParkingSystemManager {
 	public OccupancyManagement occupancy = new OccupancyManagement();
 	public FraudPreventionManagement fraudManager = new FraudPreventionManagement();
 	public CreditCard creditcard = new CreditCard();
+	
+	public ReportManagement reportManagement=new ReportManagement(ticketmager);
 
 	public CreditCard getCreditcard() {
 		return creditcard;

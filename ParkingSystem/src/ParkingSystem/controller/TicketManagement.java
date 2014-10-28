@@ -14,6 +14,8 @@ public class TicketManagement {
 	// TODO: review the code for tight coupling , use low coupling refactoring.
 
 	private List<Ticket> ticketcollection = new ArrayList<Ticket>();
+	
+	
 
 	public void printTicket() {
 
