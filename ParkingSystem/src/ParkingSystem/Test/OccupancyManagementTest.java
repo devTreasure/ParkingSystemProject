@@ -46,5 +46,39 @@ public class OccupancyManagementTest {
 		assertEquals(4, objoccupancymanager.currentParkingOccupancy);
 
 	}
+	
+	@Test
+	public void OccupnacyMangerShouldincrementTheParkingCountCorrectly()
+	{
+		OccupancyManagement o=new OccupancyManagement();
+		o.setCurrentParking(5);
+		o.incrementOcccupancy();
+		assertEquals(6,o.currentParkingOccupancy);
+
+	}
+	
+	@Test
+	public void OccupnacyMangerShouldDecrementTheParkingCountCorrectly()
+	{
+		OccupancyManagement o=new OccupancyManagement();
+		o.setCurrentParking(5);
+		o.decrementOcccupancy();
+		assertEquals(4,o.currentParkingOccupancy);
+
+	}
+	
+	@Test
+	public void ParkingFullorAvailblemethodMusttrirnCOrrectFlag()
+	{
+		OccupancyManagement o=new OccupancyManagement();
+		o.setCurrentParking(5);
+		o.currentParkingOccupancy=5;
+		assertEquals(true,o.isParkingfull());	
+		
+		
+		
+		
+	}
+	
 
 }
