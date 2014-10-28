@@ -116,7 +116,7 @@ public class ParkingSystemManager {
 			this.ticket = ticket;
 
 			occupancy.incrementOcccupancy();
-
+       
 			Thread ts = new Thread(new Runnable() {
 
 				@Override

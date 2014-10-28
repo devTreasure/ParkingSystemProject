@@ -21,7 +21,9 @@ public class OccupancyManagement {
 	}
 
 	public void incrementOcccupancy() {
-		this.currentParkingOccupancy += 1;
+		
+		if(this.currentParkingOccupancy<this.parkingCapacity )
+		     this.currentParkingOccupancy += 1;
 	}
 
 	public void decrementOcccupancy() {
@@ -44,6 +46,7 @@ public class OccupancyManagement {
 	}
 
 	public Boolean isParkingfull() {
+		
 		if (this.currentParkingOccupancy < this.parkingCapacity)
 			return false;
 		else

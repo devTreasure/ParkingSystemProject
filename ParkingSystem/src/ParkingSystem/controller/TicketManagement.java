@@ -24,6 +24,7 @@ public class TicketManagement {
 	}
 
 	public Ticket createTicket() {
+		
 		Ticket newTicket = new Ticket();
 		// New ticket added to collection
 		this.ticket = newTicket;
