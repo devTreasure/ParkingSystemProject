@@ -23,6 +23,7 @@ public class TicketManagement {
 
 	}
 
+	
 	public Ticket createTicket() {
 		
 		Ticket newTicket = new Ticket();

@@ -29,15 +29,7 @@ public class ParkingSystemManager {
 	}
 
 	public Ticket ticket;
-	/*
-	public Gate getGate() {
-		return gatemanagement.;
-	}
 
-	public void setGate(Gate gate) {
-		this.gate = gate;
-	}
-*/
 	public ParkingSystemManager() {
 
 	}

@@ -391,10 +391,14 @@ public class parkingGUI extends JFrame {
 		 dialog.show();
     }   
 	
+	
+	
 	private void calculatefareActionPerformed(java.awt.event.ActionEvent evt) {
 		objticketmanager.calculateFare(this);
 		
 	}
+	
+
 
 	private void IntiliazeWindows() {
 
@@ -474,9 +478,9 @@ public class parkingGUI extends JFrame {
 		jLabel6.setText(" Ticket Status");
 		jLabel7.setText("Entry time");
 
-		// setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		
-		 setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+		 //setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
 		jLabel1.setText("PlateID");
 
@@ -494,6 +498,8 @@ public class parkingGUI extends JFrame {
 						printTicketActionPerformed(evt);
 					}
 				});
+		
+	
 
 		buttonPayment.setText("Payment");
 		buttonPayment.setToolTipText("");

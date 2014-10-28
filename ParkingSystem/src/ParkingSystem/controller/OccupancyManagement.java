@@ -22,7 +22,7 @@ public class OccupancyManagement {
 
 	public void incrementOcccupancy() {
 		
-		if(this.currentParkingOccupancy<this.parkingCapacity )
+		if(!this.isParkingfull() )
 		     this.currentParkingOccupancy += 1;
 	}
 
