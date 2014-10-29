@@ -34,8 +34,9 @@ public class Ticket {
 	private Date exitTime;
 	private TicketStatus ticektStatus;
 	private UUID ticketID;
-	private float ticketAmount;
+	private double ticketAmount;
 	private Boolean isPaid;
+    private double parkingDuration;
 
 	public Boolean getIsPaid() {
 		return isPaid;
@@ -115,12 +116,20 @@ public class Ticket {
 		this.ticektStatus = TicketStatus.Void;
 	}
 
-	public float getTicketAmount() {
+	public double getTicketAmount() {
 		return ticketAmount;
 	}
 
-	public void setTicketAmount(float ticketAmount) {
+	public void setTicketAmount(double ticketAmount) {
 		this.ticketAmount = ticketAmount;
+	}
+
+	public double getParkingDuration() {
+		return parkingDuration;
+	}
+
+	public void setParkingDuration(double parkingDuration) {
+		this.parkingDuration = parkingDuration;
 	}
 
 }
