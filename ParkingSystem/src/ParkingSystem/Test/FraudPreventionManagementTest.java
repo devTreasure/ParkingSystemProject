@@ -15,7 +15,7 @@ public class FraudPreventionManagementTest {
 	@Test
 	public void checkEntryWithVaildTicket() {
 		ParkingSystemManager pm = new ParkingSystemManager();
-		Ticket t = pm.ticketmager.createTicket();
+		Ticket t = pm.getTicketmager().createTicket();
 		t.activatetheTicektStatus();
 
 		Gate g = new EntryGate(1);
@@ -30,7 +30,7 @@ public class FraudPreventionManagementTest {
 	@Test
 	public void checkEntryWithoutVaildTicket() {
 		ParkingSystemManager pm = new ParkingSystemManager();
-		Ticket t = pm.ticketmager.createTicket();
+		Ticket t = pm.getTicketmager().createTicket();
 		
 
 		Gate g = new EntryGate(1);
@@ -47,7 +47,7 @@ public class FraudPreventionManagementTest {
 	public void isValidTicketReturnsFalseWhenTicketIsNotActive()
 	{
 		ParkingSystemManager pm = new ParkingSystemManager();
-		Ticket t = pm.ticketmager.createTicket();
+		Ticket t = pm.getTicketmager().createTicket();
 		
 		//Ticket is created but not activated.
 
@@ -62,7 +62,7 @@ public class FraudPreventionManagementTest {
 	public void isValidTicketReturnsTrueWhenTicketIsActive()
 	{
 		ParkingSystemManager pm = new ParkingSystemManager();
-		Ticket t = pm.ticketmager.createTicket();
+		Ticket t = pm.getTicketmager().createTicket();
 		
 		t.activatetheTicektStatus();
 		//Ticket is created but not activated.
