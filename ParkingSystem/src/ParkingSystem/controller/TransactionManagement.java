@@ -52,19 +52,19 @@ public class TransactionManagement {
 				int year = Integer.parseInt(parts[1]);
 
 				if (year < currentYear) {
-					JOptionPane.showMessageDialog(null,
-							"Please enter valid month/year.");
+
+					// JOptionPane.showMessageDialog(null,
+					// "Please enter valid month/year.");
 				} else {
 					validentry = true;
 				}
 			} else {
-				JOptionPane.showMessageDialog(null,
-						"Please enter the date  in mm/YYYY format.");
+				// JOptionPane.showMessageDialog(null,"Please enter the date  in mm/YYYY format.");
 			}
 		} catch (Exception e) {
 
-			JOptionPane.showMessageDialog(null,
-					"Please enter valid month/year.");
+			// JOptionPane.showMessageDialog(null,
+			// "Please enter valid month/year.");
 		}
 
 		return validentry;
@@ -75,7 +75,7 @@ public class TransactionManagement {
 		// Boolean isverified = false;
 		Status status = null;
 
-		if (card.getCCNumner().length() == 16 	&& (this.validateTheYear(card))) {
+		if (card.getCCNumner().length() == 16 && (this.validateTheYear(card))) {
 
 			status = new Status(true, "card is valid");
 
