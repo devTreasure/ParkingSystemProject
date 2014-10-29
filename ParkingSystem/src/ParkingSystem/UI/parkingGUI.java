@@ -51,7 +51,7 @@ public class parkingGUI extends JFrame {
 	javax.swing.JLabel jLabel11;
 	javax.swing.JLabel jLabel12;
 	javax.swing.JLabel jLabel14;
-     javax.swing.JLabel jLabel15;
+    javax.swing.JLabel jLabel15;
 	public javax.swing.JTextField jTextField4;
 	public javax.swing.JTextField jTextField5;
 	public javax.swing.JTextField jTextField6;
@@ -238,14 +238,14 @@ public class parkingGUI extends JFrame {
 
 		if (validentry) {
 
-			objticketmanager.getCreditcard().setCCNumner(jTextField4.getText());
-			objticketmanager.getCreditcard().setExpiryDate(
+			objticketmanager.paymanager.getCreditCard().setCCNumner(jTextField4.getText());
+			objticketmanager.paymanager.getCreditCard().setExpiryDate(
 					jTextField6.getText());
-			objticketmanager.getCreditcard().setCvvNumber(
+			objticketmanager.paymanager.getCreditCard().setCvvNumber(
 					Integer.parseInt(jTextField7.getText()));
 
-			float amount = objticketmanager
-					.processPayment(objticketmanager.ticket);
+			double amount = objticketmanager.processPayment(objticketmanager.ticket,objticketmanager.paymanager.getCreditCard());
+			
 			String strAmount = String.valueOf(amount);
 
 			jTextField5.setText(strAmount);
@@ -391,8 +391,10 @@ public class parkingGUI extends JFrame {
 	
 	
 	private void calculatefareActionPerformed(java.awt.event.ActionEvent evt) {
-		objticketmanager.calculateFare(this);
 		
+		objticketmanager.calculateFare(objticketmanager.ticket);
+		
+		jTextField5.setText(Double.toString(objticketmanager.ticket.getTicketAmount()));
 	}
 	
 
@@ -834,7 +836,9 @@ public class parkingGUI extends JFrame {
 	        jLabel7.getAccessibleContext().setAccessibleName("lblticketStatus");
 
 
-		objticketmanager.occupancy.setParkingCapacity(2);
+		    objticketmanager.occupancy.setParkingCapacity(2);
+		    
+	    	objticketmanager.paymanager.setHourlyRate(11);
 		
 		ParkingStatus parkingStatus = objticketmanager.occupancy
 				.currentparkingStatus();

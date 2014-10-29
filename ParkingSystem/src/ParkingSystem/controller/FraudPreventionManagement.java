@@ -35,15 +35,11 @@ public class FraudPreventionManagement {
 
 	}
 
-	public void checkNovoidticketEnteredforPaymentAtexit(Ticket t) {
-		
-		
 
-	}
 
 	public Boolean checkNoExitWithoutPay(Ticket ticket) {
 				
-		if(isValidTicet(ticket)  &&  ticket.getIsPaid())
+		if(isValidTicket(ticket)  &&  ticket.getIsPaid())
 			return true;
 		else
 			return true;
@@ -53,7 +49,7 @@ public class FraudPreventionManagement {
 		
 		Boolean isvalidEntry;
 		
-		if(isValidTicet(ticket))
+		if(isValidTicket(ticket))
 		{
 		  g.gateStatus=GateStatus.Open;
 		  isvalidEntry=true;
@@ -74,7 +70,7 @@ public class FraudPreventionManagement {
 		// no two entry per one ticket
 	}
 
-	public Boolean isValidTicet(Ticket ticket) {
+	public Boolean isValidTicket(Ticket ticket) {
 		
 		if((ticket != null && ticket.getTicektStatus() == TicketStatus.Active))
 			return true;
