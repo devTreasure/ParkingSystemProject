@@ -11,7 +11,7 @@ import ParkingSystem.UI.parkingGUI;
 
 public class ParkingSystemManager {
 
-	public GateManagement gatemanagement = new GateManagement();
+	private GateManagement gatemanagement = new GateManagement();
 	public TicketManagement ticketmager = new TicketManagement();
 	public PaymentManagement paymanager = new PaymentManagement();
 	public OccupancyManagement occupancy = new OccupancyManagement();
@@ -22,6 +22,10 @@ public class ParkingSystemManager {
 
 	public ParkingSystemManager() {
 
+	}
+
+	public GateManagement getGatemanagement() {
+		return gatemanagement;
 	}
 
 	public Ticket getTicket() {
