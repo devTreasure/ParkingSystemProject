@@ -7,15 +7,15 @@ public class CreditCard {
 	private String CCNumner;
 	private String expiryDate;
 	private int cvvNumber;
-	private String FirstName;
-	private String LastName;
-	private String Address1;
-	private String Address2;
-	private String StateCode;
-	private String State;
-	private String zip;
-	private String CountryCode;
-	private String Country;
+    private double amount;
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
 	private UUID ticketID;
 
 	public CreditCard() {
