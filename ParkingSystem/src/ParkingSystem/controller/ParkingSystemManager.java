@@ -16,18 +16,9 @@ public class ParkingSystemManager {
 	public PaymentManagement paymanager = new PaymentManagement();
 	public OccupancyManagement occupancy = new OccupancyManagement();
 	public FraudPreventionManagement fraudManager = new FraudPreventionManagement();
-	public CreditCard creditcard = new CreditCard();
-	
 	public ReportManagement reportManagement=new ReportManagement(ticketmager);
-
-	public CreditCard getCreditcard() {
-		return creditcard;
-	}
-
-	public void setCreditcard(CreditCard creditcard) {
-		this.creditcard = creditcard;
-	}
-
+    public static ErrorHandler  errorManager= new ErrorHandler();
+	
 	public Ticket ticket;
 
 	public ParkingSystemManager() {
@@ -77,24 +68,6 @@ public class ParkingSystemManager {
 		return status;
 	}
 
-	/*
-	public void gateCloseOpeation(Gate gate) {
-		// TODO add your handling code here:
-
-		if (gate.gateStatus == GateStatus.Open) {
-			gate.gateStatus = GateStatus.Close;
-			// parkingGUI.jTextField3.setText(gate.gateStatus.toString());
-		}
-
-		if (gate.gateStatus == GateStatus.Open) {
-			gate.gateStatus = GateStatus.Close;
-			// parkingGUI.jTextField3.setText(gate.gateStatus.toString());
-		} else {
-			// parkingGUI.jTextField3.setText(gate.gateStatus.toString());
-		}
-
-	}
-*/
 	public void printTicketOperation() {
 
 		// TODO add your handling code here:
@@ -104,7 +77,7 @@ public class ParkingSystemManager {
 		ticket.activatetheTicektStatus();
 		ticket.generateTicketID();
 
-		if (fraudManager.isValidTicet(ticket)) {
+		if (fraudManager.isValidTicket(ticket)) {
 			this.ticket = ticket;
 
 			occupancy.incrementOcccupancy();
@@ -129,41 +102,52 @@ public class ParkingSystemManager {
 
 	}
 
-	public void calculateFare(parkingGUI parkingGUI) {
+	
+	 public void PerformFareProcessment()
+	 {
+	
+	 }
+	 
+	 
+	public void calculateFare(Ticket ticket) {
 		// TODO add your handling code here:
 		Calendar c = Calendar.getInstance();
 
 		java.util.Date currenttime = c.getTime();
 		
         //TODO:Disply hourly rate through system.
-	
 		
 		ticket.setExitTime(currenttime);
-		paymanager.setHourlyRate(11);
+		
+		
 
-		long rate = paymanager.calculateParkingDuration(ticket);
+		Double rate = paymanager.calculateParkingDuration(ticket);
+		
 		ticket.setTicketAmount(rate);
 
 		// objticketmanager.gatemanagement.ExitGate(1);
 
-		parkingGUI.jTextField5.setText(Long.toString(rate));
+		//parkingGUI.jTextField5.setText(Double.toString(rate));
 	}
 
-	public float processPayment(Ticket ticket) {
+	public double processPayment(Ticket ticket,CreditCard  card) {
 
-		CreditCard crdeitcard = new CreditCard();
+		//CreditCard crdeitcard = new CreditCard();
 
-		// associating ticket id to credit card id
-
-		crdeitcard.setTicketID(ticket.getTicektID());
+	
 		
-		if(fraudManager.isValidTicet(ticket))
+	
+		
+	// associating ticket id to credit card id
+		this.paymanager.getCreditCard().setTicketID(ticket.getTicektID());
+		
+		if(fraudManager.isValidTicket(ticket))
+		      	this.paymanager.processForParkingFeePayment(ticket,card);
+		
+		
+		   double ticektAmount = ticket.getTicketAmount();
 
-		paymanager.Pay(ticket);
-
-		float ticektAmount = ticket.getTicketAmount();
-
-		return ticektAmount;
+		   return ticektAmount;
 	}
 
 	public ParkingSystemManager(parkingGUI parkingGUI) {
