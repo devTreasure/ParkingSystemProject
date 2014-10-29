@@ -16,9 +16,8 @@ public class ParkingSystemManager {
 	public PaymentManagement paymanager = new PaymentManagement();
 	public OccupancyManagement occupancy = new OccupancyManagement();
 	public FraudPreventionManagement fraudManager = new FraudPreventionManagement();
-	public ReportManagement reportManagement=new ReportManagement(ticketmager);
-    public static ErrorHandler  errorManager= new ErrorHandler();
-	
+	public ReportManagement reportManagement = new ReportManagement(ticketmager);
+
 	public Ticket ticket;
 
 	public ParkingSystemManager() {
@@ -44,18 +43,18 @@ public class ParkingSystemManager {
 			// TODO add your handling code here:
 		}
 
-		//if (fraudManager.isValidTicet(ticket)	&& ticket.getIsPaid() == true) {
+		// if (fraudManager.isValidTicet(ticket) && ticket.getIsPaid() == true)
+		// {
 		if (fraudManager.checkNoExitWithoutPay(ticket)) {
-			
+
 			ticket.deactivatetheTicektStatus();
-			
+
 			Gate g1 = gatemanagement.openExitGate(1);
 
 			fraudManager.ticketgatecollection.put(ticket, g1);
 
-			
 			Gate g2 = gatemanagement.closeExitGate(1);
-			
+
 			occupancy.decrementOcccupancy();
 
 			fraudManager.ticketgatecollection.put(ticket, g2);
@@ -81,7 +80,7 @@ public class ParkingSystemManager {
 			this.ticket = ticket;
 
 			occupancy.incrementOcccupancy();
-       
+
 			Thread ts = new Thread(new Runnable() {
 
 				@Override
@@ -102,51 +101,42 @@ public class ParkingSystemManager {
 
 	}
 
-	
-	 public void PerformFareProcessment()
-	 {
-	
-	 }
-	 
-	 
+	public void PerformFareProcessment() {
+
+	}
+
 	public void calculateFare(Ticket ticket) {
 		// TODO add your handling code here:
 		Calendar c = Calendar.getInstance();
 
 		java.util.Date currenttime = c.getTime();
-		
-        //TODO:Disply hourly rate through system.
-		
+
+		// TODO:Disply hourly rate through system.
+
 		ticket.setExitTime(currenttime);
-		
-		
 
 		Double rate = paymanager.calculateParkingDuration(ticket);
-		
+
 		ticket.setTicketAmount(rate);
 
 		// objticketmanager.gatemanagement.ExitGate(1);
 
-		//parkingGUI.jTextField5.setText(Double.toString(rate));
+		// parkingGUI.jTextField5.setText(Double.toString(rate));
 	}
 
-	public double processPayment(Ticket ticket,CreditCard  card) {
+	public double processPayment(Ticket ticket, CreditCard card) {
 
-		//CreditCard crdeitcard = new CreditCard();
+		// CreditCard crdeitcard = new CreditCard();
 
-	
-		
-	
-		
-	// associating ticket id to credit card id
+		// associating ticket id to credit card id
 		this.paymanager.getCreditCard().setTicketID(ticket.getTicektID());
-		
-		if(fraudManager.isValidTicket(ticket))
-		      	this.paymanager.processForParkingFeePayment(ticket,card);
-			
-		   double ticektAmount = ticket.getTicketAmount();
-           
-		   return ticektAmount;
+
+		if (fraudManager.isValidTicket(ticket))
+			this.paymanager.processForParkingFeePayment(ticket, card);
+
+		double ticektAmount = ticket.getTicketAmount();
+
+		return ticektAmount;
 	}
 
 	public ParkingSystemManager(parkingGUI parkingGUI) {

@@ -38,11 +38,10 @@ public class PaymentManagement {
 
 	{
 		creditcollection.add(card);
-		Boolean isSuccessfull = false;
-
+	
 		if (ticket.getTicketAmount() > 0) {
 			card.setAmount(ticket.getTicketAmount());
-			isSuccessfull = transactionManager.ProcessTheTransaction(card);
+			Boolean isSuccessfull = transactionManager.ProcessTheTransaction(card);
 		}
 		ticket.setTicketAmount(0);// amount paid and due is set 0
 

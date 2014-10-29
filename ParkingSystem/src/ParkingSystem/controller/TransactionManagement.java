@@ -5,26 +5,29 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 import ParkingSystem.Entities.CreditCard;
+import ParkingSystem.Entities.Status;
 
 public class TransactionManagement {
 
 	// TODO: add all ticket transaction in collection for report ,yearly,monthly
 	// weekly calculation
-    
-	CreditPaymentGateWay paymentgateway=new CreditPaymentGateWay();
-	
-	public Boolean ProcessTheTransaction(CreditCard card)
-	{
-	
-		Boolean  transactionProcessed=false;
-		
-		if(isvalidCreditCard(card) &&  card.getAmount()>0)
-		{
-	        //processing amount
-			if( paymentgateway.makePayment(card.getAmount()))
-			   card.setAmount(0);
+
+	CreditPaymentGateWay paymentgateway = new CreditPaymentGateWay();
+
+	public Boolean ProcessTheTransaction(CreditCard card) {
+
+		Boolean transactionProcessed = false;
+		Status status = isvalidCreditCard(card);
+
+		if (status.isSuccessMessage() && card.getAmount() > 0) {
+			// processing amount
+			if (paymentgateway.makePayment(card.getAmount())) {
+				card.setAmount(0);
+				transactionProcessed = true;
+
+			}
 		}
-		    
+
 		return transactionProcessed;
 	}
 
@@ -67,24 +70,22 @@ public class TransactionManagement {
 		return validentry;
 	}
 
-	private Boolean isvalidCreditCard(CreditCard card) {
+	private Status isvalidCreditCard(CreditCard card) {
 
-		Boolean isverified = false;
+		// Boolean isverified = false;
+		Status status = null;
 
 		if (card.getCCNumner().length() > 16
-				|| card.getCCNumner().length() < 16) {
-			isverified = true;
-		} else
+				|| card.getCCNumner().length() < 16
+				&& (this.validateTheYear(card))) {
 
-		{
-			ParkingSystemManager.errorManager
-					.setErrorMessage("Please Enter Valid Credit Card number");
+			status = new Status(true, "card is valid");
+
+		} else {
+			status = new Status(false, "Please Enter Valid Credit Card number");
+
 		}
 
-		if (this.validateTheYear(card)) {
-			isverified = true;
-		}
-
-		return isverified;
+		return status;
 	}
 }
