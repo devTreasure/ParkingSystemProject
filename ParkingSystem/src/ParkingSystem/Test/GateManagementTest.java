@@ -43,6 +43,7 @@ public class GateManagementTest {
 	}
 	
 	
+	
 	@Test
 	public void closeeEntryGate() {
 		

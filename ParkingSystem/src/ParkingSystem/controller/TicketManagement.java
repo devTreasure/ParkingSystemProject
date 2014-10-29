@@ -16,13 +16,11 @@ public class TicketManagement {
 	private List<Ticket> ticketcollection = new ArrayList<Ticket>();
 	
 	
-
 	public void printTicket() {
 
 		// TODO Auto-generated method stub
 
 	}
-
 	
 	public Ticket createTicket() {
 		
@@ -32,7 +30,7 @@ public class TicketManagement {
 		ticketcollection.add(ticket);
 		return ticket;
 	}
-
+	
 	public List<Ticket> getTicketcollection() {
 		return ticketcollection;
 	}

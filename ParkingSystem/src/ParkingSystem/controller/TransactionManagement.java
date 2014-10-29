@@ -10,7 +10,9 @@ public class TransactionManagement {
 
 	// TODO: add all ticket transaction in collection for report ,yearly,monthly
 	// weekly calculation
-
+    
+	CreditPaymentGateWay paymentgateway=new CreditPaymentGateWay();
+	
 	public Boolean ProcessTheTransaction(CreditCard card)
 	{
 	
@@ -19,8 +21,8 @@ public class TransactionManagement {
 		if(isvalidCreditCard(card) &&  card.getAmount()>0)
 		{
 	        //processing amount
-			transactionProcessed=true;
-			card.setAmount(0);
+			if( paymentgateway.makePayment(card.getAmount()))
+			   card.setAmount(0);
 		}
 		    
 		return transactionProcessed;

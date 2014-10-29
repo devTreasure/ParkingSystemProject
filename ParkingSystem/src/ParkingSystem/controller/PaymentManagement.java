@@ -9,25 +9,13 @@ import ParkingSystem.Entities.Ticket;
 public class PaymentManagement {
 
 	private CreditCard creditCard;
-	private int parkingRate;
 
-	private int hourlyRate = 0;
+	private int hourlyRate;
 	private List<CreditCard> creditcollection = new ArrayList<CreditCard>();
-	public TransactionManagement  transactionManager = new TransactionManagement();
-	
-	public PaymentManagement()
-	{
-		creditCard=new CreditCard();
-	}
+	public TransactionManagement transactionManager = new TransactionManagement();
 
-	public int getParkingRate() {
-		return parkingRate;
-	}
-
-	
-	
-	public void setParkingRate(int parkingRate) {
-		this.parkingRate = parkingRate;
+	public PaymentManagement() {
+		creditCard = new CreditCard();
 	}
 
 	public CreditCard getCreditCard() {
@@ -46,22 +34,19 @@ public class PaymentManagement {
 		this.hourlyRate = hourlyRate;
 	}
 
-	public void processForParkingFeePayment(Ticket ticket,CreditCard  card)
+	public void processForParkingFeePayment(Ticket ticket, CreditCard card)
 
 	{
 		creditcollection.add(card);
-		Boolean isSuccessfull= false;
-		
-		if (ticket.getTicketAmount() > 0)
-		{     
-			  card.setAmount(ticket.getTicketAmount());
-			   isSuccessfull=transactionManager.ProcessTheTransaction(card);
+		Boolean isSuccessfull = false;
+
+		if (ticket.getTicketAmount() > 0) {
+			card.setAmount(ticket.getTicketAmount());
+			isSuccessfull = transactionManager.ProcessTheTransaction(card);
 		}
-			ticket.setTicketAmount(0);// amount paid and due is set 0
-		
-		   //Paymentmanager is only authorized to 
-		
-		    ticket.setIsPaid(true);
+		ticket.setTicketAmount(0);// amount paid and due is set 0
+
+		ticket.setIsPaid(true);
 
 	}
 
@@ -83,7 +68,6 @@ public class PaymentManagement {
 
 		// Stamping parking duration to the ticket
 		ticket.setParkingDuration(caluclatedTimeinHr);
-	
 
 		return ((this.hourlyRate) * ticket.getParkingDuration());
 

@@ -143,10 +143,9 @@ public class ParkingSystemManager {
 		
 		if(fraudManager.isValidTicket(ticket))
 		      	this.paymanager.processForParkingFeePayment(ticket,card);
-		
-		
+			
 		   double ticektAmount = ticket.getTicketAmount();
-
+           
 		   return ticektAmount;
 	}
 
