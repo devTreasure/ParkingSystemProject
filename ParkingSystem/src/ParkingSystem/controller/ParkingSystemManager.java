@@ -13,10 +13,10 @@ public class ParkingSystemManager {
 
 	private GateManagement gatemanagement = new GateManagement();
 	private TicketManagement ticketmager = new TicketManagement();
-	public PaymentManagement paymanager = new PaymentManagement();
-	public OccupancyManagement occupancy = new OccupancyManagement();
-	public FraudPreventionManagement fraudManager = new FraudPreventionManagement();
-	public ReportManagement reportManagement = new ReportManagement(ticketmager);
+	private PaymentManagement paymanager = new PaymentManagement();
+	private OccupancyManagement occupancy = new OccupancyManagement();
+	private FraudPreventionManagement fraudManager = new FraudPreventionManagement();
+	private ReportManagement reportManagement = new ReportManagement(ticketmager);
 
 	public Ticket ticket;
 
@@ -30,6 +30,26 @@ public class ParkingSystemManager {
 
 	public TicketManagement getTicketmager() {
 		return ticketmager;
+	}
+
+	public PaymentManagement getPaymanager() {
+		return paymanager;
+	}
+	
+	
+
+	public FraudPreventionManagement getFraudManager() {
+		return fraudManager;
+	}
+
+	public OccupancyManagement getOccupancy() {
+		return occupancy;
+	}
+	
+	
+
+	public ReportManagement getReportManagement() {
+		return reportManagement;
 	}
 
 	public Ticket getTicket() {

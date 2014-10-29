@@ -75,9 +75,7 @@ public class TransactionManagement {
 		// Boolean isverified = false;
 		Status status = null;
 
-		if (card.getCCNumner().length() > 16
-				|| card.getCCNumner().length() < 16
-				&& (this.validateTheYear(card))) {
+		if (card.getCCNumner().length() == 16 	&& (this.validateTheYear(card))) {
 
 			status = new Status(true, "card is valid");
 

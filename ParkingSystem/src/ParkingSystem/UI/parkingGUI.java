@@ -80,45 +80,49 @@ public class parkingGUI extends JFrame {
 	private void openGateActionPerformed(java.awt.event.ActionEvent evt) {
 
 		if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
-			objticketmanager.getGatemanagement().gate = objticketmanager.getGatemanagement()
-					.OpenEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+			objticketmanager.getGatemanagement().gate = 
+					objticketmanager.getGatemanagement().OpenEntryGate(objticketmanager.getGatemanagement().gate.GateId);
 
 			// added for fraud prevention check
-			objticketmanager.fraudManager.ticketgatecollection.put(
-					objticketmanager.ticket,
+			objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
 					objticketmanager.getGatemanagement().gate);
 
-			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus
-					.toString());
+			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+			
+			if(objticketmanager.getGatemanagement().gate.gateStatus==GateStatus.Open)
+			{
+				objticketmanager.getGatemanagement().gate = 
+				objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+				
+			}
+			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+			
+				
 		} else {
-			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus
-					.toString());
+			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
 		}
 
 		// TODO add your =handling code here:
 	}
 
 	private void closeGateActionPerformed(java.awt.event.ActionEvent evt) {
-		objticketmanager.getGatemanagement()
-				.closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+		objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
 
 	}
 
 	private void entrygateClosingActionPerformed(java.awt.event.ActionEvent evt) {
 
 		if (objticketmanager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
-			objticketmanager.getGatemanagement()
-					.closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+			objticketmanager.getGatemanagement().closeEntryGate(
+					objticketmanager.getGatemanagement().gate.GateId);
 
 			// ticket with gate movement is added in collection to check fraud
 			// activity
 
-			objticketmanager.fraudManager.ticketgatecollection.put(
-					objticketmanager.ticket,
+			objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
 					objticketmanager.getGatemanagement().gate);
 
-			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus
-					.toString());
+			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
 		}
 	}
 
@@ -135,10 +139,9 @@ public class parkingGUI extends JFrame {
 		Status exitStatus = objticketmanager.processExitFor(ticketID);
 		JOptionPane.showMessageDialog(null, exitStatus.getMessage());
 
-		objticketmanager.fraudManager.checkentryExitOperation();
+		objticketmanager.getFraudManager().checkentryExitOperation();
 
-		label5.setText(String
-				.valueOf(objticketmanager.occupancy.currentParkingOccupancy));
+		label5.setText(String.valueOf(objticketmanager.getOccupancy().currentParkingOccupancy));
 		// Gate g=objticketmanager.gatemanagement.ExitGate(1);
 	}
 
@@ -152,10 +155,8 @@ public class parkingGUI extends JFrame {
 		if (jTextField4.getText().length() > 0)
 
 		{
-			if (jTextField4.getText().length() > 16
-					|| jTextField4.getText().length() < 16) {
-				JOptionPane.showMessageDialog(null,
-						"Please enter valid card number");
+			if (jTextField4.getText().length() > 16 || jTextField4.getText().length() < 16) {
+				JOptionPane.showMessageDialog(null, "Please enter valid card number");
 
 			}
 
@@ -163,8 +164,7 @@ public class parkingGUI extends JFrame {
 			;
 
 			if (!validate) {
-				JOptionPane.showMessageDialog(null,
-						"Please enter Numeric values only.");
+				JOptionPane.showMessageDialog(null, "Please enter Numeric values only.");
 
 			} else
 
@@ -198,19 +198,16 @@ public class parkingGUI extends JFrame {
 					int entedyear = Integer.parseInt(parts[1]);
 
 					if (entedyear < year) {
-						JOptionPane.showMessageDialog(null,
-								"Please enter valid month/year.");
+						JOptionPane.showMessageDialog(null, "Please enter valid month/year.");
 					} else {
 						validentry = true;
 					}
 				} else {
-					JOptionPane.showMessageDialog(null,
-							"Please enter the date  in mm/YYYY format.");
+					JOptionPane.showMessageDialog(null, "Please enter the date  in mm/YYYY format.");
 				}
 			} catch (Exception e) {
 
-				JOptionPane.showMessageDialog(null,
-						"Please enter valid month/year.");
+				JOptionPane.showMessageDialog(null, "Please enter valid month/year.");
 			}
 
 			if (jTextField7.toString().length() > 0) {
@@ -218,14 +215,11 @@ public class parkingGUI extends JFrame {
 				;
 
 				if (!validate) {
-					JOptionPane.showMessageDialog(null,
-							"Please enter Numeric values only.");
+					JOptionPane.showMessageDialog(null, "Please enter Numeric values only.");
 
 				} else {
-					if (jTextField7.getText().length() > 3
-							|| (jTextField7.getText().length() < 3))
-						JOptionPane.showMessageDialog(null,
-								"Entered cvv is incorrect.");
+					if (jTextField7.getText().length() > 3 || (jTextField7.getText().length() < 3))
+						JOptionPane.showMessageDialog(null, "Entered cvv is incorrect.");
 					else
 						validentry = true;
 				}
@@ -240,16 +234,13 @@ public class parkingGUI extends JFrame {
 
 		if (validentry) {
 
-			objticketmanager.paymanager.getCreditCard().setCCNumner(
-					jTextField4.getText());
-			objticketmanager.paymanager.getCreditCard().setExpiryDate(
-					jTextField6.getText());
-			objticketmanager.paymanager.getCreditCard().setCvvNumber(
-					Integer.parseInt(jTextField7.getText()));
+			objticketmanager.getPaymanager().getCreditCard().setCCNumner(jTextField4.getText());
+			objticketmanager.getPaymanager().getCreditCard().setExpiryDate(jTextField6.getText());
+			objticketmanager.getPaymanager().getCreditCard()
+					.setCvvNumber(Integer.parseInt(jTextField7.getText()));
 
-			double amount = objticketmanager.processPayment(
-					objticketmanager.ticket,
-					objticketmanager.paymanager.getCreditCard());
+			double amount = objticketmanager.processPayment(objticketmanager.ticket, objticketmanager
+					.getPaymanager().getCreditCard());
 
 			String strAmount = String.valueOf(amount);
 
@@ -260,7 +251,7 @@ public class parkingGUI extends JFrame {
 
 	public void printTicketActionPerformed(java.awt.event.ActionEvent evt) {
 
-		if (objticketmanager.occupancy.isParkingfull()) {
+		if (objticketmanager.getOccupancy().isParkingfull()) {
 			buttonPrintTicket.setVisible(false);
 		}
 
@@ -271,20 +262,15 @@ public class parkingGUI extends JFrame {
 
 			objticketmanager.printTicketOperation();
 
-			ParkingStatus parkingStatus = objticketmanager.occupancy
-					.currentparkingStatus();
+			ParkingStatus parkingStatus = objticketmanager.getOccupancy().currentparkingStatus();
 			jTextField2.setText(parkingStatus.toString());
 
-			jTextField10.setText(objticketmanager.ticket.getTicketID()
-					.toString());
-			jTextField11.setText(objticketmanager.ticket.getTicektStatus()
-					.toString());
-			jTextField12.setText(objticketmanager.ticket.getEntryTime()
-					.toString());
+			jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
+			jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString());
+			jTextField12.setText(objticketmanager.ticket.getEntryTime().toString());
 			jLabel4.setText("Success..Collect the ticket from slot");
 
-			String currentCount = Integer
-					.toString(objticketmanager.occupancy.currentParkingOccupancy);
+			String currentCount = Integer.toString(objticketmanager.getOccupancy().currentParkingOccupancy);
 
 			label5.setText(currentCount);
 		} else {
@@ -301,6 +287,35 @@ public class parkingGUI extends JFrame {
 
 		else {
 			jLabel4.setText("Error...Please Retry");
+		}
+				
+		if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
+			objticketmanager.getGatemanagement().gate = objticketmanager.getGatemanagement().OpenEntryGate(
+					objticketmanager.getGatemanagement().gate.GateId);
+
+			// added for fraud prevention check
+			objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
+					objticketmanager.getGatemanagement().gate);
+			
+			JOptionPane.showMessageDialog(null, "Gate is Opened");
+			JOptionPane.showMessageDialog(null, "Succesful Entry");
+
+			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+			
+		
+			if(objticketmanager.getGatemanagement().gate.gateStatus==GateStatus.Open)
+			{
+				objticketmanager.getGatemanagement().gate = 
+				objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+				JOptionPane.showMessageDialog(null, "Gate closed");
+
+			}
+			
+			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+			
+			
+		} else {
+			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
 		}
 	}
 
@@ -343,11 +358,9 @@ public class parkingGUI extends JFrame {
 		else if (choiceSelection == "Weely")
 			reportType = ReportType.Weekly;
 
-		List<Ticket> reportData = objticketmanager.reportManagement
-				.generateReport(reportType);
+		List<Ticket> reportData = objticketmanager.getReportManagement().generateReport(reportType);
 
-		String[] columnNames = { "TicketID", "Entry Time ", "Exit Time",
-				"Amount" };
+		String[] columnNames = { "TicketID", "Entry Time ", "Exit Time", "Amount" };
 
 		Object[][] data = new Object[reportData.size()][4];
 
@@ -376,8 +389,7 @@ public class parkingGUI extends JFrame {
 
 		objticketmanager.calculateFare(objticketmanager.ticket);
 
-		jTextField5.setText(Double.toString(objticketmanager.ticket
-				.getTicketAmount()));
+		jTextField5.setText(Double.toString(objticketmanager.ticket.getTicketAmount()));
 	}
 
 	private void IntiliazeWindows() {
@@ -471,12 +483,11 @@ public class parkingGUI extends JFrame {
 		buttonPrintTicket.setText("Print Ticket");
 		buttonPrintTicket.setToolTipText("Print Ticket");
 
-		buttonPrintTicket
-				.addActionListener(new java.awt.event.ActionListener() {
-					public void actionPerformed(java.awt.event.ActionEvent evt) {
-						printTicketActionPerformed(evt);
-					}
-				});
+		buttonPrintTicket.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				printTicketActionPerformed(evt);
+			}
+		});
 
 		buttonPayment.setText("Payment");
 		buttonPayment.setToolTipText("");
@@ -593,8 +604,7 @@ public class parkingGUI extends JFrame {
 			}
 		});
 
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
-				getContentPane());
+		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(layout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -602,24 +612,16 @@ public class parkingGUI extends JFrame {
 						layout.createSequentialGroup()
 								.addGap(32, 32, 32)
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING,
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
 												false)
-												.addComponent(
-														jLabel11,
-														javax.swing.GroupLayout.DEFAULT_SIZE,
-														javax.swing.GroupLayout.DEFAULT_SIZE,
-														Short.MAX_VALUE)
-												.addComponent(
-														jLabel10,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														107,
+												.addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(jLabel10,
+														javax.swing.GroupLayout.PREFERRED_SIZE, 107,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
 												.addComponent(jLabel12)
 												.addComponent(jLabel13)
-												.addComponent(
-														label1,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
+												.addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
 												.addComponent(jLabel9)
@@ -628,8 +630,7 @@ public class parkingGUI extends JFrame {
 																.addComponent(
 																		label3,
 																		javax.swing.GroupLayout.PREFERRED_SIZE,
-																		0,
-																		Short.MAX_VALUE)
+																		0, Short.MAX_VALUE)
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																.addComponent(
@@ -640,8 +641,7 @@ public class parkingGUI extends JFrame {
 																.addGap(9, 9, 9)))
 								.addGap(18, 18, 18)
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 												.addGroup(
 														layout.createSequentialGroup()
 																.addGroup(
@@ -667,9 +667,7 @@ public class parkingGUI extends JFrame {
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
 																						293,
 																						javax.swing.GroupLayout.PREFERRED_SIZE))
-																.addGap(0,
-																		0,
-																		Short.MAX_VALUE))
+																.addGap(0, 0, Short.MAX_VALUE))
 												.addGroup(
 														layout.createSequentialGroup()
 																.addGroup(
@@ -695,16 +693,12 @@ public class parkingGUI extends JFrame {
 																						jTextField7,
 																						javax.swing.GroupLayout.Alignment.LEADING,
 																						javax.swing.GroupLayout.DEFAULT_SIZE,
-																						147,
-																						Short.MAX_VALUE))
+																						147, Short.MAX_VALUE))
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED,
 																		javax.swing.GroupLayout.DEFAULT_SIZE,
 																		Short.MAX_VALUE)
-																.addComponent(
-																		jLabel15)
-																.addGap(82, 82,
-																		82))
+																.addComponent(jLabel15).addGap(82, 82, 82))
 												.addGroup(
 														layout.createSequentialGroup()
 																.addComponent(
@@ -716,26 +710,17 @@ public class parkingGUI extends JFrame {
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED,
 																		javax.swing.GroupLayout.DEFAULT_SIZE,
 																		Short.MAX_VALUE)
-																.addComponent(
-																		btnReport)
-																.addGap(47, 47,
-																		47))))
+																.addComponent(btnReport).addGap(47, 47, 47))))
 				.addGroup(
 						layout.createSequentialGroup()
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addGroup(
+														layout.createSequentialGroup().addGap(126, 126, 126)
+																.addComponent(jLabel1))
 												.addGroup(
 														layout.createSequentialGroup()
-																.addGap(126,
-																		126,
-																		126)
-																.addComponent(
-																		jLabel1))
-												.addGroup(
-														layout.createSequentialGroup()
-																.addGap(81, 81,
-																		81)
+																.addGap(81, 81, 81)
 																.addComponent(
 																		jLabel14,
 																		javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -743,12 +728,9 @@ public class parkingGUI extends JFrame {
 																		javax.swing.GroupLayout.PREFERRED_SIZE)))
 								.addGap(20, 20, 20)
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 												.addGroup(
-														layout.createSequentialGroup()
-																.addComponent(
-																		jLabel3)
+														layout.createSequentialGroup().addComponent(jLabel3)
 																.addContainerGap())
 												.addGroup(
 														layout.createSequentialGroup()
@@ -799,8 +781,7 @@ public class parkingGUI extends JFrame {
 																										javax.swing.GroupLayout.PREFERRED_SIZE))
 																				.addGroup(
 																						layout.createSequentialGroup()
-																								.addGap(3,
-																										3,
+																								.addGap(3, 3,
 																										3)
 																								.addComponent(
 																										buttonGate1)
@@ -813,8 +794,7 @@ public class parkingGUI extends JFrame {
 																										javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 																								.addComponent(
 																										buttonGate3)))
-																.addGap(58, 58,
-																		58)
+																.addGap(58, 58, 58)
 																.addGroup(
 																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.LEADING)
@@ -877,13 +857,10 @@ public class parkingGUI extends JFrame {
 						layout.createSequentialGroup()
 								.addGap(60, 60, 60)
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING,
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING,
 												false)
-												.addComponent(
-														jLabel5,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														319,
+												.addComponent(jLabel5,
+														javax.swing.GroupLayout.PREFERRED_SIZE, 319,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
 												.addGroup(
 														javax.swing.GroupLayout.Alignment.TRAILING,
@@ -891,8 +868,7 @@ public class parkingGUI extends JFrame {
 																.addGroup(
 																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.LEADING)
-																				.addComponent(
-																						jLabel6)
+																				.addComponent(jLabel6)
 																				.addComponent(
 																						jLabel7,
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -917,30 +893,24 @@ public class parkingGUI extends JFrame {
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
 																						186,
 																						javax.swing.GroupLayout.PREFERRED_SIZE))))
-								.addContainerGap(
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 		layout.setVerticalGroup(layout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(
 						layout.createSequentialGroup()
 								.addContainerGap()
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.BASELINE)
-												.addComponent(
-														jTextField1,
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+												.addComponent(jTextField1,
 														javax.swing.GroupLayout.PREFERRED_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
 												.addComponent(jLabel1))
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.TRAILING)
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 												.addGroup(
 														layout.createSequentialGroup()
-																.addGap(15, 15,
-																		15)
+																.addGap(15, 15, 15)
 																.addGroup(
 																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.BASELINE)
@@ -966,8 +936,7 @@ public class parkingGUI extends JFrame {
 																						javax.swing.GroupLayout.PREFERRED_SIZE))
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-																.addComponent(
-																		buttonPrintTicket)
+																.addComponent(buttonPrintTicket)
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 																.addComponent(
@@ -985,10 +954,8 @@ public class parkingGUI extends JFrame {
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED,
 																		javax.swing.GroupLayout.DEFAULT_SIZE,
 																		Short.MAX_VALUE)
-																.addComponent(
-																		jLabel2)
-																.addGap(18, 18,
-																		18)
+																.addComponent(jLabel2)
+																.addGap(18, 18, 18)
 																.addComponent(
 																		jTextField2,
 																		javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -999,15 +966,13 @@ public class parkingGUI extends JFrame {
 								.addComponent(jLabel3)
 								.addGap(5, 5, 5)
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 												.addGroup(
 														layout.createSequentialGroup()
 																.addGroup(
 																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.BASELINE)
-																				.addComponent(
-																						jLabel5)
+																				.addComponent(jLabel5)
 																				.addComponent(
 																						jTextField10,
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -1086,38 +1051,27 @@ public class parkingGUI extends JFrame {
 																		javax.swing.GroupLayout.PREFERRED_SIZE,
 																		javax.swing.GroupLayout.DEFAULT_SIZE,
 																		javax.swing.GroupLayout.PREFERRED_SIZE)
-																.addGap(164,
-																		164,
-																		164)))
-								.addPreferredGap(
-										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+																.addGap(164, 164, 164)))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
-												.addComponent(
-														label3,
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+												.addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE,
+														javax.swing.GroupLayout.DEFAULT_SIZE,
+														javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addComponent(choice1,
 														javax.swing.GroupLayout.PREFERRED_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														choice1,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
-														javax.swing.GroupLayout.DEFAULT_SIZE,
-														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														label4,
-														javax.swing.GroupLayout.PREFERRED_SIZE,
+												.addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE,
 														javax.swing.GroupLayout.DEFAULT_SIZE,
 														javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addGroup(
-										layout.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.LEADING)
+										layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 												.addGroup(
 														layout.createSequentialGroup()
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																.addComponent(
-																		buttonFarecalc)
+																.addComponent(buttonFarecalc)
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 																.addGroup(
@@ -1133,37 +1087,31 @@ public class parkingGUI extends JFrame {
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
 																						javax.swing.GroupLayout.DEFAULT_SIZE,
 																						javax.swing.GroupLayout.PREFERRED_SIZE))
-																.addGap(18, 18,
-																		18)
+																.addGap(18, 18, 18)
 																.addGroup(
 																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.BASELINE)
-																				.addComponent(
-																						jLabel9)
+																				.addComponent(jLabel9)
 																				.addComponent(
 																						jTextField4,
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
 																						javax.swing.GroupLayout.DEFAULT_SIZE,
 																						javax.swing.GroupLayout.PREFERRED_SIZE))
-																.addGap(18, 18,
-																		18)
+																.addGap(18, 18, 18)
 																.addGroup(
 																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.BASELINE)
-																				.addComponent(
-																						jLabel10)
+																				.addComponent(jLabel10)
 																				.addComponent(
 																						jTextField5,
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
 																						javax.swing.GroupLayout.DEFAULT_SIZE,
 																						javax.swing.GroupLayout.PREFERRED_SIZE))
-																.addGap(18, 18,
-																		18)
+																.addGap(18, 18, 18)
 																.addGroup(
 																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.LEADING)
-																				.addComponent(
-																						jLabel11)
+																				.addComponent(jLabel11)
 																				.addComponent(
 																						jTextField6,
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
@@ -1174,17 +1122,14 @@ public class parkingGUI extends JFrame {
 																.addGroup(
 																		layout.createParallelGroup(
 																				javax.swing.GroupLayout.Alignment.LEADING)
-																				.addComponent(
-																						jLabel12)
+																				.addComponent(jLabel12)
 																				.addComponent(
 																						jTextField7,
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
 																						javax.swing.GroupLayout.DEFAULT_SIZE,
 																						javax.swing.GroupLayout.PREFERRED_SIZE))
-																.addGap(25, 25,
-																		25)
-																.addComponent(
-																		buttonPayment)
+																.addGap(25, 25, 25)
+																.addComponent(buttonPayment)
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
 																.addGroup(
@@ -1195,17 +1140,12 @@ public class parkingGUI extends JFrame {
 																						javax.swing.GroupLayout.PREFERRED_SIZE,
 																						javax.swing.GroupLayout.DEFAULT_SIZE,
 																						javax.swing.GroupLayout.PREFERRED_SIZE)
-																				.addComponent(
-																						jLabel13))
-																.addGap(18, 18,
-																		18)
-																.addComponent(
-																		buttonExit))
+																				.addComponent(jLabel13))
+																.addGap(18, 18, 18).addComponent(buttonExit))
 												.addGroup(
 														layout.createSequentialGroup()
 																.addGap(2, 2, 2)
-																.addComponent(
-																		jLabel15)
+																.addComponent(jLabel15)
 																.addPreferredGap(
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																.addComponent(
@@ -1213,13 +1153,8 @@ public class parkingGUI extends JFrame {
 																		javax.swing.GroupLayout.PREFERRED_SIZE,
 																		javax.swing.GroupLayout.DEFAULT_SIZE,
 																		javax.swing.GroupLayout.PREFERRED_SIZE)
-																.addGap(19, 19,
-																		19)
-																.addComponent(
-																		btnReport)))
-								.addContainerGap(
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
+																.addGap(19, 19, 19).addComponent(btnReport)))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
 		jLabel3.getAccessibleContext().setAccessibleName("lblprintTicket");
 		jLabel4.getAccessibleContext().setAccessibleName("lblticketid");
@@ -1227,21 +1162,18 @@ public class parkingGUI extends JFrame {
 		jLabel6.getAccessibleContext().setAccessibleName("lblticketInTime");
 		jLabel7.getAccessibleContext().setAccessibleName("lblticketStatus");
 
-		objticketmanager.occupancy.setParkingCapacity(2);
+		objticketmanager.getOccupancy().setParkingCapacity(2);
 
-		objticketmanager.paymanager.setHourlyRate(11);
+		objticketmanager.getPaymanager().setHourlyRate(11);
+		
+		jTextField3.setText(GateStatus.Close.toString());
 
-		ParkingStatus parkingStatus = objticketmanager.occupancy
-				.currentparkingStatus();
+		ParkingStatus parkingStatus = objticketmanager.getOccupancy().currentparkingStatus();
 		jTextField2.setText(parkingStatus.toString());
 
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-
-		// Variables declaration - do not modify
-
-		// End of variables declaration
 		parkingGUI objgui = new parkingGUI();
 
 		// Ensure the gatestatus
@@ -1259,26 +1191,6 @@ public class parkingGUI extends JFrame {
 
 		GateManagement g = new GateManagement();
 		TicketManagement t = new TicketManagement();
-
-		// IntiliazeWindows();
-
-		/*
-		 * 
-		 * Calendar c=Calendar.getInstance();
-		 * 
-		 * 
-		 * java.util.Date currenttime=c.getTime();
-		 * //System.out.println(currenttime);
-		 * 
-		 * //Thread.sleep(60000); Calendar c2=Calendar.getInstance();
-		 * 
-		 * java.util.Date nexttime=c2.getTime(); //System.out.println(nexttime);
-		 * 
-		 * 
-		 * long timediff=(nexttime.getTime()-currenttime.getTime())/(60 * 1000);
-		 * 
-		 * //System.out.println(timediff);
-		 */
 
 	}
 
