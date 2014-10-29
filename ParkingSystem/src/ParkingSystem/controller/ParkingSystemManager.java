@@ -71,12 +71,11 @@ public class ParkingSystemManager {
 			// TODO add your handling code here:
 		}
 
-		// if (fraudManager.isValidTicet(ticket) && ticket.getIsPaid() == true)
-		// {
+
 		if (fraudManager.checkNoExitWithoutPay(ticket)) {
 
 			ticket.deactivatetheTicektStatus();
-
+          //Exit is only through one exit
 			Gate g1 = gatemanagement.openExitGate(1);
 
 			fraudManager.ticketgatecollection.put(ticket, g1);
@@ -134,27 +133,22 @@ public class ParkingSystemManager {
 	}
 
 	public void calculateFare(Ticket ticket) {
-		// TODO add your handling code here:
+		
 		Calendar c = Calendar.getInstance();
 
 		java.util.Date currenttime = c.getTime();
 
-		// TODO:Disply hourly rate through system.
-
+	
 		ticket.setExitTime(currenttime);
 
 		Double rate = paymanager.calculateParkingDuration(ticket);
 
 		ticket.setTicketAmount(rate);
 
-		// objticketmanager.gatemanagement.ExitGate(1);
-
-		// parkingGUI.jTextField5.setText(Double.toString(rate));
 	}
 
 	public double processPayment(Ticket ticket, CreditCard card) {
 
-		// CreditCard crdeitcard = new CreditCard();
 
 		// associating ticket id to credit card id
 		this.paymanager.getCreditCard().setTicketID(ticket.getTicektID());

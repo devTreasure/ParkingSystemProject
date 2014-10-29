@@ -16,20 +16,8 @@ public class FraudPreventionManagement {
 
 	private List<Gate> gatecollection = new ArrayList<Gate>();
 
-	Map<String, Gate> multiMap = new HashMap<String, Gate>();
-
 	public Map<Ticket, Gate> ticketgatecollection = new HashMap<Ticket, Gate>();
-
-	public Map<String, Gate> getMultiMap() {
-
-		return multiMap;
-	}
-
-	public void setMultiMap(Map<String, Gate> multiMap) {
-
-		this.multiMap = multiMap;
-
-	}
+	
 
 	public FraudPreventionManagement() {
 
@@ -64,11 +52,6 @@ public class FraudPreventionManagement {
 		return isvalidEntry;
 	}
 
-	public void entryAndExitsgates() {
-		// there must be one exit and one entry for each ticket so in total to gate movements reported for each ticket.
-		// no two exits per one ticket
-		// no two entry per one ticket
-	}
 
 	public Boolean isValidTicket(Ticket ticket) {
 		
