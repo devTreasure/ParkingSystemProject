@@ -80,309 +80,313 @@ public class parkingGUI extends JFrame {
 
 	private void openGateActionPerformed(java.awt.event.ActionEvent evt) {
 
-		if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) 
-		{
-			objticketmanager.getGatemanagement().gate = 
-					objticketmanager.getGatemanagement().OpenEntryGate(objticketmanager.getGatemanagement().gate.GateId);
-
-			// added for fraud prevention check
-			objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,objticketmanager.getGatemanagement().gate);
-
-			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
-			
-			if(objticketmanager.getGatemanagement().gate.gateStatus==GateStatus.Open)
-			{
-				//objticketmanager.getGatemanagement().gate = objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
-				objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
-			}
-			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
-			
-				
-		} else {
-			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
-		}
-
-		// TODO add your =handling code here:
-	}
-
-	private void closeGateActionPerformed(java.awt.event.ActionEvent evt) {
-		objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
-
-	}
-
-	private void entrygateClosingActionPerformed(java.awt.event.ActionEvent evt) {
-
-		if (objticketmanager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
-			objticketmanager.getGatemanagement().closeEntryGate(
-					objticketmanager.getGatemanagement().gate.GateId);
-
-			// ticket with gate movement is added in collection to check fraud
-			// activity
-
-			objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
-					objticketmanager.getGatemanagement().gate);
-
-			jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
-		}
-	}
-
-	private void exitActionPerformed(java.awt.event.ActionEvent evt) {
-
-		UUID ticketID = null;
-
 		try {
-			ticketID = UUID.fromString(choice1.getSelectedItem());
+
+			if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
+				objticketmanager.getGatemanagement().gate = objticketmanager.getGatemanagement()
+						.OpenEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+
+				// added for fraud prevention check
+				objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
+						objticketmanager.getGatemanagement().gate);
+
+				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+
+				if (objticketmanager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
+					// objticketmanager.getGatemanagement().gate =
+					// objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+					objticketmanager.getGatemanagement().closeEntryGate(
+							objticketmanager.getGatemanagement().gate.GateId);
+				}
+				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+
+			} else {
+				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+			}
 		} catch (Exception ex) {
 
 		}
 
-		Status exitStatus = objticketmanager.processExitFor(ticketID);
-		JOptionPane.showMessageDialog(null, exitStatus.getMessage());
+	}
 
-		objticketmanager.getFraudManager().checkentryExitOperation();
+	private void closeGateActionPerformed(java.awt.event.ActionEvent evt) {
+		try {
+			objticketmanager.getGatemanagement().closeEntryGate(
+					objticketmanager.getGatemanagement().gate.GateId);
+		} catch (Exception ex) {
 
-		label5.setText(String.valueOf(objticketmanager.getOccupancy().currentParkingOccupancy));
-		// Gate g=objticketmanager.gatemanagement.ExitGate(1);
-		
-		if (objticketmanager.getOccupancy().isParkingfull()) {
-			buttonPrintTicket.setVisible(false);
-		}
-		else
-		{
-			
-				buttonPrintTicket.setVisible(true);
-			
 		}
 	}
 
-	public void paymentActionPerformed(ActionEvent evt) {
-		// TODO Auto-generated method stub.
-		//
-		ArrayList<String>  error = new ArrayList<String>();
-	       
-	        
+	private void entrygateClosingActionPerformed(java.awt.event.ActionEvent evt) {
 
-		String regex = "\\d+";
-		Boolean validentry = false;
+		try {
 
-		if (jTextField4.getText().length() > 0)
+			if (objticketmanager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
+				objticketmanager.getGatemanagement().closeEntryGate(
+						objticketmanager.getGatemanagement().gate.GateId);
 
-		{
-			if (jTextField4.getText().length() > 16 || jTextField4.getText().length() < 16) {
-				JOptionPane.showMessageDialog(null, "Please enter valid card number");
-				error.add("Please enter valid card number");
+				// ticket with gate movement is added in collection to check
+				// fraud
+				// activity
+
+				objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
+						objticketmanager.getGatemanagement().gate);
+
+				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
 			}
-
-			boolean validate = jTextField4.getText().matches("[0-9]+");
-			;
-
-			if (!validate) {
-				JOptionPane.showMessageDialog(null, "Please enter Numeric values only.");
-				error.add("Please enter Numeric values only.");
-				validentry = false;
-
-			} else
-
-			{
-				validentry = true;
-
-			}
+		} catch (Exception ex) {
 
 		}
+	}
 
-		else {
-			JOptionPane.showMessageDialog(null, "Credit number is required");
-			error.add("Credit number is required");
-			validentry = false;
-		}
-		// JOptionPane.showMessageDialog(null, "My Goodness, this is a pay");
-		
-		if (jTextField7.toString().length() > 0) 
-		{
-			boolean validate = jTextField7.getText().matches("[0-9]+");
-			;
+	private void exitActionPerformed(java.awt.event.ActionEvent evt) {
+		try {
 
-			if (!validate) 
-			{
-				error.add("Please enter Numeric values only.");
-				JOptionPane.showMessageDialog(null, "Please enter Numeric values only.");
-
-			}
-			else 
-			{
-				if (jTextField7.getText().length() > 3 || (jTextField7.getText().length() < 3))
-				{
-					error.add("Entered cvv is incorrect.");
-					JOptionPane.showMessageDialog(null, "Entered cvv is incorrect.");
-					validentry = false;
-				}
-				else
-					validentry = true;
-			}
-
-		}
-
-		else {
-			validentry = false;
-			error.add("Entered cvv is incorrect.");
-			JOptionPane.showMessageDialog(null, "Please enter cvv.");
-		}
-
-		if (jTextField6.toString().length() > 0) 
-		{
-			Calendar cal = Calendar.getInstance();
-
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH);
-
-			String entermonth[] = new String[2];
+			UUID ticketID = null;
 
 			try {
-				String string = jTextField6.getText().toString();
-				String[] parts = string.split("/");
+				ticketID = UUID.fromString(choice1.getSelectedItem());
+			} catch (Exception ex) {
 
-				if (entermonth.length > 0) {
-					int entedmonth = Integer.parseInt(parts[0]);
-					int entedyear = Integer.parseInt(parts[1]);
-
-					if (entedyear < year) {
-						validentry = false;
-						error.add("Please enter valid month/year.");
-						JOptionPane.showMessageDialog(null, "Please enter valid month/year.");
-					} else {
-						validentry = true;
-					}
-				} else {
-					validentry = false;
-					error.add("Please enter the date  in mm/YYYY format.");
-					JOptionPane.showMessageDialog(null, "Please enter the date  in mm/YYYY format.");
-				}
-			} catch (Exception e) 
-			
-			{
-				validentry = false;
-				error.add("Please enter valid month/year.");
-				JOptionPane.showMessageDialog(null, "Please enter valid month/year.");
 			}
+
+			Status exitStatus = objticketmanager.processExitFor(ticketID);
+			JOptionPane.showMessageDialog(null, exitStatus.getMessage());
+
+			if (exitStatus.getStatus()) {
+				jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
+				jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString());
+				jTextField12.setText(objticketmanager.ticket.getEntryTime().toString());
+			}
+
+			objticketmanager.getFraudManager().checkentryExitOperation();
+
+			label5.setText(String.valueOf(objticketmanager.getOccupancy().currentParkingOccupancy));
+			// Gate g=objticketmanager.gatemanagement.ExitGate(1);
+
+			if (objticketmanager.getOccupancy().isParkingfull()) {
+				buttonPrintTicket.setVisible(false);
+			} else {
+
+				buttonPrintTicket.setVisible(true);
+				jTextField2.setText(ParkingStatus.Open.toString());
+
+			}
+		} catch (Exception ex) {
+
 		}
 
-			
+	}
 
-		
+	public void paymentActionPerformed(ActionEvent evt) {
+		try {
+			ArrayList<String> error = new ArrayList<String>();
 
-		if (validentry   &&  error.size() < 1) {
+			String regex = "\\d+";
+			Boolean validentry = false;
 
-			objticketmanager.getPaymanager().getCreditCard().setCCNumner(jTextField4.getText());
-			objticketmanager.getPaymanager().getCreditCard().setExpiryDate(jTextField6.getText());
-			objticketmanager.getPaymanager().getCreditCard().setCvvNumber(Integer.parseInt(jTextField7.getText()));
+			if (jTextField4.getText().length() > 0)
 
-			double amount = objticketmanager.processPayment(objticketmanager.ticket, objticketmanager.getPaymanager().getCreditCard());
+			{
+				if (jTextField4.getText().length() > 16 || jTextField4.getText().length() < 16) {
+					JOptionPane.showMessageDialog(null, "Please enter valid card number");
+					error.add("Please enter valid card number");
+				}
 
-			String strAmount = String.valueOf(amount);
+				boolean validate = jTextField4.getText().matches("[0-9]+");
+				;
 
-			jTextField5.setText(strAmount);
+				if (!validate) {
+					JOptionPane.showMessageDialog(null, "Please enter Numeric values only.");
+					error.add("Please enter Numeric values only.");
+					validentry = false;
+
+				} else
+
+				{
+					validentry = true;
+
+				}
+
+			}
+
+			else {
+				JOptionPane.showMessageDialog(null, "Credit number is required");
+				error.add("Credit number is required");
+				validentry = false;
+			}
+			// JOptionPane.showMessageDialog(null,
+			// "My Goodness, this is a pay");
+
+			if (jTextField7.toString().length() > 0) {
+				boolean validate = jTextField7.getText().matches("[0-9]+");
+				;
+
+				if (!validate) {
+					error.add("Please enter Numeric values only.");
+					JOptionPane.showMessageDialog(null, "Please enter Numeric values only.");
+
+				} else {
+					if (jTextField7.getText().length() > 3 || (jTextField7.getText().length() < 3)) {
+						error.add("Entered cvv is incorrect.");
+						JOptionPane.showMessageDialog(null, "Entered cvv is incorrect.");
+						validentry = false;
+					} else
+						validentry = true;
+				}
+
+			}
+
+			else {
+				validentry = false;
+				error.add("Entered cvv is incorrect.");
+				JOptionPane.showMessageDialog(null, "Please enter cvv.");
+			}
+
+			if (jTextField6.toString().length() > 0) {
+				Calendar cal = Calendar.getInstance();
+
+				int year = cal.get(Calendar.YEAR);
+				int month = cal.get(Calendar.MONTH);
+
+				String entermonth[] = new String[2];
+
+				try {
+					String string = jTextField6.getText().toString();
+					String[] parts = string.split("/");
+
+					if (entermonth.length > 0) {
+						int entedmonth = Integer.parseInt(parts[0]);
+						int entedyear = Integer.parseInt(parts[1]);
+
+						if (entedyear < year) {
+							validentry = false;
+							error.add("Please enter valid month/year.");
+							JOptionPane.showMessageDialog(null, "Please enter valid month/year.");
+						} else {
+							validentry = true;
+						}
+					} else {
+						validentry = false;
+						error.add("Please enter the date  in mm/YYYY format.");
+						JOptionPane.showMessageDialog(null, "Please enter the date  in mm/YYYY format.");
+					}
+				} catch (Exception e)
+
+				{
+					validentry = false;
+					error.add("Please enter valid month/year.");
+					JOptionPane.showMessageDialog(null, "Please enter valid month/year.");
+				}
+			}
+
+			if (validentry && error.size() < 1) {
+
+				objticketmanager.getPaymanager().getCreditCard().setCCNumner(jTextField4.getText());
+				objticketmanager.getPaymanager().getCreditCard().setExpiryDate(jTextField6.getText());
+				objticketmanager.getPaymanager().getCreditCard()
+						.setCvvNumber(Integer.parseInt(jTextField7.getText()));
+
+				double amount = objticketmanager.processPayment(objticketmanager.ticket, objticketmanager
+						.getPaymanager().getCreditCard());
+
+				String strAmount = String.valueOf(amount);
+
+				jTextField5.setText(strAmount);
+			}
+		} catch (Exception ex) {
+
 		}
 
 	}
 
 	public void printTicketActionPerformed(java.awt.event.ActionEvent evt) {
+		try {
 
-		if (objticketmanager.getOccupancy().isParkingfull()) {
-			objticketmanager.getGatemanagement().gate.GateId=0;
+			if (objticketmanager.getOccupancy().isParkingfull()) {
+				objticketmanager.getGatemanagement().gate.GateId = 0;
 
-			buttonPrintTicket.setVisible(false);
-		}
-		else
-		{
-			
+				buttonPrintTicket.setVisible(false);
+			} else {
+
 				buttonPrintTicket.setVisible(true);
-			
-		}
 
-		if( (objticketmanager.getGatemanagement().gate.GateId == 1
-				|| objticketmanager.getGatemanagement().gate.GateId == 2
-				|| objticketmanager.getGatemanagement().gate.GateId == 3)  && (!objticketmanager.getOccupancy().isParkingfull())) {
-			jLabel4.setText("Printing Ticket...Please Wait");
-
-			objticketmanager.printTicketOperation();
-
-			ParkingStatus parkingStatus = objticketmanager.getOccupancy().currentparkingStatus();
-			jTextField2.setText(parkingStatus.toString());
-
-			jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
-			jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString());
-			jTextField12.setText(objticketmanager.ticket.getEntryTime().toString());
-			jLabel4.setText("Success..Collect the ticket from slot");
-
-			String currentCount = Integer.toString(objticketmanager.getOccupancy().currentParkingOccupancy);
-
-			label5.setText(currentCount);
-			
-			
-			
-			
-			if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
-				objticketmanager.getGatemanagement().gate = objticketmanager.getGatemanagement().OpenEntryGate(
-						objticketmanager.getGatemanagement().gate.GateId);
-
-				// added for fraud prevention check
-				objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
-						objticketmanager.getGatemanagement().gate);
-				
-				JOptionPane.showMessageDialog(null, "Gate is Opened");
-				JOptionPane.showMessageDialog(null, "Succesful Entry");
-
-				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
-				
-			
-				if(objticketmanager.getGatemanagement().gate.gateStatus==GateStatus.Open)
-				{
-		
-					objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
-					JOptionPane.showMessageDialog(null, "Gate closed");
-					
-					objticketmanager.getGatemanagement().gate.GateId=0;
-				}
-				
-				
-				
-				if (objticketmanager.ticket != null
-						&& objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
-
-					choice1.add(objticketmanager.ticket.getTicketID().toString());
-				}
-
-				else {
-					jLabel4.setText("Error...Please Retry");
-				}
-				
-				
-				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
-				
-				
-			} 
-			else 
-			{
-				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
 			}
+
+			if ((objticketmanager.getGatemanagement().gate.GateId == 1
+					|| objticketmanager.getGatemanagement().gate.GateId == 2 || objticketmanager
+					.getGatemanagement().gate.GateId == 3)
+					&& (!objticketmanager.getOccupancy().isParkingfull())) {
+				jLabel4.setText("Printing Ticket...Please Wait");
+
+				objticketmanager.printTicketOperation();
+
+				ParkingStatus parkingStatus = objticketmanager.getOccupancy().currentparkingStatus();
+				jTextField2.setText(parkingStatus.toString());
+
+				jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
+				jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString());
+				jTextField12.setText(objticketmanager.ticket.getEntryTime().toString());
+				jLabel4.setText("Success..Collect the ticket");
+
+				String currentCount = Integer
+						.toString(objticketmanager.getOccupancy().currentParkingOccupancy);
+
+				label5.setText(currentCount);
+
+				if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
+					objticketmanager.getGatemanagement().gate = objticketmanager.getGatemanagement()
+							.OpenEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+
+					// added for fraud prevention check
+					objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
+							objticketmanager.getGatemanagement().gate);
+
+					JOptionPane.showMessageDialog(null, "Gate is Opened");
+					JOptionPane.showMessageDialog(null, "Succesful Entry");
+
+					jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+
+					if (objticketmanager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
+
+						objticketmanager.getGatemanagement().closeEntryGate(
+								objticketmanager.getGatemanagement().gate.GateId);
+						JOptionPane.showMessageDialog(null, "Gate closed");
+
+						objticketmanager.getGatemanagement().gate.GateId = 0;
+					}
+
+					if (objticketmanager.ticket != null
+							&& objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
+
+						choice1.add(objticketmanager.ticket.getTicketID().toString());
+					}
+
+					else {
+						jLabel4.setText("Error...Please Retry");
+					}
+
+					jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+
+				} else {
+					jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+				}
+			} else
+
+			{
+				JOptionPane.showMessageDialog(null, "please select the entry gate");
+			}
+		} catch (Exception ex) {
+
 		}
-		else 
-		
-		{
-			JOptionPane.showMessageDialog(null, "please select the entry gate");
-		}
-		// Gate g = objticketmanager.gatemanagement.OpenEntryGate(3);
-		// objticketmanager.fraudManager.ticketgatecollection.put(objticketmanager.ticket,g);
-		// above method has delay
-	
-				
 
 	}
 
 	private void gate1selectionActionPerformed(java.awt.event.ActionEvent evt) {
 
 		objticketmanager.getGatemanagement().gate = new EntryGate(1);
-		JOptionPane.showMessageDialog(null, "Entry gate 1 is Selected");
+		JOptionPane.showMessageDialog(null, "Entry gate 1 is Selected, Please print ticket now");
 
 	}
 
@@ -390,14 +394,14 @@ public class parkingGUI extends JFrame {
 		// TODO add your handling code here:
 
 		objticketmanager.getGatemanagement().gate = new EntryGate(2);
-		JOptionPane.showMessageDialog(null, "Entry gate 2 is Selected");
+		JOptionPane.showMessageDialog(null, "Entry gate 2 is Selected, Please print ticket now");
 
 	}
 
 	private void gate3SelectionActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		objticketmanager.getGatemanagement().gate = new EntryGate(3);
-		JOptionPane.showMessageDialog(null, "Entry gate 3 is Selected");
+		JOptionPane.showMessageDialog(null, "Entry gate 3 is Selected, Please print ticket now");
 
 	}
 
@@ -408,51 +412,62 @@ public class parkingGUI extends JFrame {
 	private void ReportActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 		// Report type enum need to be used for replacing integer arg
-		ReportType reportType = null;
+		try {
+			ReportType reportType = null;
 
-		System.out.print(choiseReport.getSelectedItem());
+			System.out.print(choiseReport.getSelectedItem());
 
-		String choiceSelection = choiseReport.getSelectedItem();
+			String choiceSelection = choiseReport.getSelectedItem();
 
-		if (choiceSelection == "Hourly")
-			reportType = ReportType.Hourly;
-		else if (choiceSelection == "Daily")
-			reportType = ReportType.Daily;
-		else if (choiceSelection == "Weely")
-			reportType = ReportType.Weekly;
+			if (choiceSelection == "Hourly")
+				reportType = ReportType.Hourly;
+			else if (choiceSelection == "Daily")
+				reportType = ReportType.Daily;
+			else if (choiceSelection == "Weely")
+				reportType = ReportType.Weekly;
 
-		List<Ticket> reportData = objticketmanager.getReportManagement().generateReport(reportType);
+			List<Ticket> reportData = objticketmanager.getReportManagement().generateReport(reportType);
 
-		String[] columnNames = { "TicketID", "Entry Time ", "Exit Time", "Amount" };
+			String[] columnNames = { "TicketID", "Entry Time ", "Exit Time", "Amount" };
 
-		Object[][] data = new Object[reportData.size()][4];
+			Object[][] data = new Object[reportData.size()][4];
 
-		for (int i = 0; i < reportData.size(); i++) {
-			data[i][0] = reportData.get(i).getTicektID();
-			data[i][1] = reportData.get(i).getEntryTime();
-			data[i][2] = reportData.get(i).getExitTime();
-			data[i][3] = reportData.get(i).getTicketAmount();
+			for (int i = 0; i < reportData.size(); i++) {
+				data[i][0] = reportData.get(i).getTicektID();
+				data[i][1] = reportData.get(i).getEntryTime();
+				data[i][2] = reportData.get(i).getExitTime();
+				data[i][3] = reportData.get(i).getTicketAmount();
+
+			}
+
+			JDialog dialog = new JDialog();
+			dialog.setBounds(500, 500, 800, 700);
+			dialog.setLayout(new GridLayout());
+			dialog.setEnabled(true);
+			dialog.setModal(true);
+
+			dialog.getContentPane().add(new JTable(data, columnNames));
+
+			dialog.setVisible(true);
+
+			dialog.show();
+		} catch (Exception ex) {
 
 		}
-
-		JDialog dialog = new JDialog();
-		dialog.setBounds(500, 500, 800, 700);
-		dialog.setLayout(new GridLayout());
-		dialog.setEnabled(true);
-		dialog.setModal(true);
-
-		dialog.getContentPane().add(new JTable(data, columnNames));
-
-		dialog.setVisible(true);
-
-		dialog.show();
 	}
 
 	private void calculatefareActionPerformed(java.awt.event.ActionEvent evt) {
+		try {
 
-		objticketmanager.calculateFare(objticketmanager.ticket);
+			if (choice1.getSelectedItem().length() > 25) {
 
-		jTextField5.setText(Double.toString(objticketmanager.ticket.getTicketAmount()));
+				objticketmanager.calculateFare(objticketmanager.ticket);
+
+				jTextField5.setText(Double.toString(objticketmanager.ticket.getTicketAmount()));
+			}
+		} catch (Exception ex) {
+
+		}
 	}
 
 	private void IntiliazeWindows() {
@@ -525,6 +540,7 @@ public class parkingGUI extends JFrame {
 			}
 		});
 
+		jTextField9.setVisible(false);
 		buttonExit.setText("Exit");
 		jLabel4.setText("Ticket :");
 
@@ -537,9 +553,11 @@ public class parkingGUI extends JFrame {
 		// setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
 		jLabel1.setText("PlateID");
+		jLabel1.setVisible(false);
 
 		jTextField1.setText("jtextnamepalte");
 		jTextField1.setToolTipText("");
+		jTextField1.setVisible(false);
 
 		jLabel2.setText("Parking Status");
 
@@ -599,6 +617,7 @@ public class parkingGUI extends JFrame {
 		jLabel13.setText("Payment Status");
 
 		label1.setText("Status");
+		label1.setVisible(false);
 
 		jLabel8.setText("Gate Status");
 
@@ -654,7 +673,7 @@ public class parkingGUI extends JFrame {
 			}
 		});
 
-		jLabel14.setText("Select Entry gate");
+		jLabel14.setText("Select gate");
 		jLabel14.setToolTipText("");
 
 		jLabel15.setText("Reports");
@@ -1228,7 +1247,7 @@ public class parkingGUI extends JFrame {
 		objticketmanager.getOccupancy().setParkingCapacity(2);
 
 		objticketmanager.getPaymanager().setHourlyRate(11);
-		
+
 		jTextField3.setText(GateStatus.Close.toString());
 
 		ParkingStatus parkingStatus = objticketmanager.getOccupancy().currentparkingStatus();
@@ -1248,12 +1267,6 @@ public class parkingGUI extends JFrame {
 		objgui.show();
 
 		PaymentManagement pay = new PaymentManagement();
-		// long result=pay.calculateParkingDuration(03/01/2013, 03/01/2013);
-		// TODO Auto-generated method stub
-		// long parkingDuration=(Date. - datein.getTime());
-
-		GateManagement g = new GateManagement();
-		TicketManagement t = new TicketManagement();
 
 	}
 
