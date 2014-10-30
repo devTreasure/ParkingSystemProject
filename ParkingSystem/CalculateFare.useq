@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.1.7" icons="true">  
+  <object id="1" language="java" name="ParkingSystem.UI.parkingGUI" project="ParkingSystem" 
+    file="/ParkingSystem/src/ParkingSystem/UI/parkingGUI.java" binary="false" label="parkingGUI" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="292" y="0"/>    
+    <execution id="2">      
+      <position height="273" width="85" x="5" y="291"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="ParkingSystem.controller.ParkingSystemManager" project="ParkingSystem" 
+    file="/ParkingSystem/src/ParkingSystem/controller/ParkingSystemManager.java" binary="false" 
+    label="parkingSystemManager" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="113" y="0"/>    
+    <execution id="4">      
+      <position height="231" width="160" x="94" y="312"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="21" width="7" x="171" y="480"/>    
+    </execution>  
+  </object>  
+  <object id="9" language="java" name="ParkingSystem.controller.PaymentManagement" project="ParkingSystem" 
+    file="/ParkingSystem/src/ParkingSystem/controller/PaymentManagement.java" binary="false" label="paymanager" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="63" width="0" x="0" y="459"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="calculateFare(ParkingSystem.Entities.Ticket):void">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="calculateParkingDuration(ParkingSystem.Entities.Ticket):double">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="10">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>
+</sequence-diagram>
