@@ -1,0 +1,75 @@
+5b08654, bhaveen@gmail.com, Wed, 29 Oct 2014 01:26:22 -0600, Updated logic for opengate method Encapsulated management instance creation Updated logi for Credit card Added new test cases for TransactionManagement.
+6862c2f, bhaveen@gmail.com, Tue, 28 Oct 2014 23:38:16 -0600, Refactored Transactionmangement and FraudPrevention test cases Refactored TicketManagement for encapsulation.
+4f1457d, bhaveen@gmail.com, Tue, 28 Oct 2014 23:25:36 -0600, Refactored code for Encapsulating GateManagement class.
+00fe025, bhaveen@gmail.com, Tue, 28 Oct 2014 22:57:06 -0600, Refactored Payment and transaction processing method.
+0fe729d, bhaveen@gmail.com, Tue, 28 Oct 2014 22:06:28 -0600, Updated code
+da9c542, bhaveen@gmail.com, Tue, 28 Oct 2014 18:06:10 -0600, Updated paymentmangement with credit card processing.
+37d77e1, bhaveen@gmail.com, Tue, 28 Oct 2014 18:04:19 -0600, Refatored code.
+1d2e086, bhaveen@gmail.com, Tue, 28 Oct 2014 18:03:55 -0600, Removed unused methods from FraudPrevention.
+5a849d7, bhaveen@gmail.com, Tue, 28 Oct 2014 18:02:53 -0600, Refactored   code according to  level of indirection concept.
+39c679c, bhaveen@gmail.com, Tue, 28 Oct 2014 18:01:53 -0600, Removed unused fields from Creditcard
+3346bc6, bhaveen@gmail.com, Tue, 28 Oct 2014 14:02:28 -0600, Code clened up.
+793b5af, bhaveen@gmail.com, Tue, 28 Oct 2014 14:02:02 -0600, Remove unused Controller.
+31d57fc, bhaveen@gmail.com, Tue, 28 Oct 2014 13:11:25 -0600, Refactored   Report test cases and updated UI logic for occupancy label.
+3b49b69, bhaveen@gmail.com, Tue, 28 Oct 2014 12:22:50 -0600, Updated occupancy logic
+21641ee, bhaveen@gmail.com, Tue, 28 Oct 2014 12:22:17 -0600, Updated parking display code
+6827550, bhaveen@gmail.com, Tue, 28 Oct 2014 12:06:48 -0600, Updated test case for occupancy
+89a6db6, bhaveen@gmail.com, Tue, 28 Oct 2014 11:49:06 -0600, Refactored code
+0a7dccd, bhaveen@gmail.com, Tue, 28 Oct 2014 09:10:36 -0600, Added new testcases for OccupancyManagement
+af0089d, bhaveen@gmail.com, Tue, 28 Oct 2014 08:57:05 -0600, Added ReportType Enum and added testcases for Report.
+0b5e7b3, bhaveen@gmail.com, Tue, 28 Oct 2014 02:11:48 -0600, removed unused files
+1cb96ed, bhaveen@gmail.com, Tue, 28 Oct 2014 02:09:34 -0600, Deleted unused .gitignore
+e65d109, bhaveen@gmail.com, Tue, 28 Oct 2014 02:02:04 -0600, Updated task list.
+239a4f7, bhaveen@gmail.com, Tue, 28 Oct 2014 01:37:34 -0600, Added report logic in UI
+6a2f9e9, bhaveen@gmail.com, Tue, 28 Oct 2014 01:37:04 -0600, Added Report management System
+da7ca0d, bhaveen@gmail.com, Mon, 27 Oct 2014 12:37:51 -0600, Updated TODO task list.
+40efab4, bhaveen@gmail.com, Mon, 27 Oct 2014 12:37:28 -0600, Refactored code to remove unused namespaces.
+091049f, bhaveen@gmail.com, Mon, 27 Oct 2014 12:26:13 -0600, renamed class TicketManager  to ParkingSystemManager
+db43636, bhaveen@gmail.com, Mon, 27 Oct 2014 12:17:16 -0600, Removed gate instance  creation from ticket management.
+5f90739, bhaveen@gmail.com, Mon, 27 Oct 2014 12:16:38 -0600, Removed gate creation from ticket management and added in gatemanagement.
+f7b63b1, bhaveen@gmail.com, Mon, 27 Oct 2014 12:15:36 -0600, Implemented methods for fraud check.
+12dcc66, bhaveen@gmail.com, Mon, 27 Oct 2014 12:15:04 -0600, Updated  rule for exit and entry gate.
+f8c4de4, bhaveen@gmail.com, Mon, 27 Oct 2014 09:42:13 -0600, updated logic for gateManagement class.
+8395322, bhaveen@gmail.com, Mon, 27 Oct 2014 09:41:50 -0600, Updated logic for gate management.
+661cecd, bhaveen@gmail.com, Mon, 27 Oct 2014 08:58:45 -0600, namespace renamed to controller as per GRASP pattern.
+6e9dc07, bhaveen@gmail.com, Mon, 27 Oct 2014 08:42:07 -0600, code formatated.
+114e04e, bhaveen@gmail.com, Mon, 27 Oct 2014 08:41:32 -0600, code formatated.
+6370559, bhaveen@gmail.com, Mon, 27 Oct 2014 08:41:06 -0600, code formatated.
+73840e7, bhaveen@gmail.com, Mon, 27 Oct 2014 08:40:53 -0600, code formatated.
+7308d3b, bhaveen@gmail.com, Mon, 27 Oct 2014 08:40:38 -0600, code formatated.
+91dfd7a, bhaveen@gmail.com, Mon, 27 Oct 2014 01:37:15 -0600, Removed unused test class.
+8c20660, bhaveen@gmail.com, Mon, 27 Oct 2014 01:34:40 -0600, Formated source code.
+b95af73, bhaveen@gmail.com, Mon, 27 Oct 2014 01:33:55 -0600, Updated : NampeSpace is renamed
+7a3f118, bhaveen@gmail.com, Mon, 27 Oct 2014 01:32:59 -0600, Moved: testclass moved to Test Package
+3b554c6, bhaveen@gmail.com, Mon, 27 Oct 2014 01:19:40 -0600, Updated initial gateAssignment for the
+0cf83d7, bhaveen@gmail.com, Mon, 27 Oct 2014 01:19:02 -0600, Updated : code foe printticket method.
+516c821, bhaveen@gmail.com, Mon, 27 Oct 2014 01:18:30 -0600, updated: code checkentryExitOperation()
+2306fce, bhaveen@gmail.com, Mon, 27 Oct 2014 01:17:47 -0600, Added: updated logic
+be758a8, bhaveen@gmail.com, Sun, 26 Oct 2014 23:25:16 -0600, Comments added for  future implementation.
+230eb47, bhaveen@gmail.com, Sun, 26 Oct 2014 23:24:33 -0600, Modified and refactored code.
+e785ec1, bhaveen@gmail.com, Sun, 26 Oct 2014 23:23:48 -0600, refacotored code
+5de6fa5, bhaveen@gmail.com, Sun, 26 Oct 2014 23:23:18 -0600, Added: new collection object to track gate operation.
+fb1e933, bhaveen@gmail.com, Sun, 26 Oct 2014 23:22:33 -0600, Added :  operation logic in fraudprevention manager
+c2a4ec4, bhaveen@gmail.com, Sun, 26 Oct 2014 23:22:06 -0600, Refactored GUI to decouple bussiness logi
+4a5ebe7, bhaveen@gmail.com, Sun, 26 Oct 2014 19:23:33 -0600, Updated an operation logic for Opengate operation..
+22e19a1, bhaveen@gmail.com, Sun, 26 Oct 2014 19:22:39 -0600, Updated : TODO commentes for TicketManagement.
+160116c, bhaveen@gmail.com, Sun, 26 Oct 2014 19:22:13 -0600, Updated : logic for isParkinfull method.
+71afde2, bhaveen@gmail.com, Sun, 26 Oct 2014 19:21:41 -0600, Refactored :  Open and close operation for exit and entry gate..\
+2710ae8, bhaveen@gmail.com, Sun, 26 Oct 2014 19:20:52 -0600, refactored method Opengate exitgate
+7bc9cb4, bhaveen@gmail.com, Sun, 26 Oct 2014 19:20:21 -0600, Added new test case deactivatedTicketCannotbeReactivated  for TicketManager
+b1377e8, bhaveen@gmail.com, Sun, 26 Oct 2014 19:19:05 -0600, Added: Testcases for OccupancyManagement.
+7ef59bf, bhaveen@gmail.com, Sun, 26 Oct 2014 19:17:46 -0600, Added test cases for gateManagement class.
+7fe080b, bhaveen@gmail.com, Sun, 26 Oct 2014 19:16:45 -0600, Added: New ParkingStatus enum.
+0c5c880, bhaveen@gmail.com, Sun, 26 Oct 2014 15:24:45 -0600, Refactored: logical condition for Ticket Added: New test method to test the status of activeticket and deactivated ticekt
+e5e7b23, bhaveen@gmail.com, Sun, 26 Oct 2014 15:17:39 -0600, Added : new test method to check that,when ticket status is acitvated it must be in active status
+b8b14ea, bhaveen@gmail.com, Sun, 26 Oct 2014 15:11:54 -0600, Added : new test method  for verifying generatedticket must be availble in ticketcollection
+184c087, bhaveen@gmail.com, Sun, 26 Oct 2014 15:05:39 -0600, refactored method
+ea1aad1, bhaveen@gmail.com, Sun, 26 Oct 2014 15:05:14 -0600, added: new test method to check uniqued id for ticket
+d5dc400, bhaveen@gmail.com, Sun, 26 Oct 2014 14:57:14 -0600, updated gui class with jframe refacoring
+bf42089, bhaveen@gmail.com, Sun, 26 Oct 2014 14:56:38 -0600, updates in class path
+87b9134, bhaveen@gmail.com, Sun, 26 Oct 2014 14:56:05 -0600, Added new object isequal for unit testing added new unit test class for ticketmanager
+db946f7, bhaveen@gmail.com, Sun, 26 Oct 2014 02:09:00 -0600, Commented unused method.
+c7f2678, bhaveen@gmail.com, Sun, 26 Oct 2014 02:08:06 -0600, Refactored : Moved domain logic for exit from GUI to Controller.
+f8dbc80, bhaveen@gmail.com, Sun, 26 Oct 2014 00:39:25 -0600, Added Gate to gui to allow multiple  gate entry
+5948440, bhaveen@gmail.com, Sat, 25 Oct 2014 23:38:13 -0600, Added new task
+8b45aa8, bhaveen@gmail.com, Sat, 25 Oct 2014 23:30:21 -0600, Initial commit for ParkingSystem - assignment A4

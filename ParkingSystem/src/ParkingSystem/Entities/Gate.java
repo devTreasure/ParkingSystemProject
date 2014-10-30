@@ -9,5 +9,15 @@ public class Gate {
 		this.GateId = gateId;
 
 	}
+	
+	public void openGate()
+	{
+		
+	}
+	
+	public void closeGate()
+	{
+		
+	}
 
 }
