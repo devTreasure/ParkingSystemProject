@@ -10,17 +10,9 @@ import ParkingSystem.Entities.GateStatus;
 
 public class GateManagement {
 
-	public Gate getGate() {
-		return gate;
-	}
-
-	public void setGate(Gate gate) {
-		this.gate = gate;
-	}
-
 	private Map<Integer, Gate> gateMovementcollection = new HashMap<Integer, Gate>();
-	
-	//No gate assigned initially
+
+	// No gate assigned initially
 	public Gate gate = new Gate(0);
 
 	// Never assign same gateid between entry and exit gate
@@ -45,7 +37,6 @@ public class GateManagement {
 		if (entryGate == null) {
 			entryGate = new EntryGate(gateid);
 			gateMovementcollection.put(gateid, entryGate);
-			Gate objGate = new EntryGate(gateid);
 		}
 
 		entryGate.gateStatus = GateStatus.Close;
@@ -79,8 +70,7 @@ public class GateManagement {
 		return gateMovementcollection;
 	}
 
-	public void setGateMovementcollection(
-			Map<Integer, Gate> gateMovementcollection) {
+	public void setGateMovementcollection(Map<Integer, Gate> gateMovementcollection) {
 		this.gateMovementcollection = gateMovementcollection;
 	}
 
