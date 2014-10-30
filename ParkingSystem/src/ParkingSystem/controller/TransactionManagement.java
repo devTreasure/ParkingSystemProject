@@ -53,8 +53,6 @@ public class TransactionManagement {
 
 				if (year < currentYear) {
 
-					// JOptionPane.showMessageDialog(null,
-					// "Please enter valid month/year.");
 				} else {
 					validentry = true;
 				}
@@ -63,8 +61,6 @@ public class TransactionManagement {
 			}
 		} catch (Exception e) {
 
-			// JOptionPane.showMessageDialog(null,
-			// "Please enter valid month/year.");
 		}
 
 		return validentry;
