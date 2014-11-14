@@ -6,5 +6,7 @@ public class EntryGate extends Gate {
 		super(gateid);
 
 	}
+	
+
 
 }

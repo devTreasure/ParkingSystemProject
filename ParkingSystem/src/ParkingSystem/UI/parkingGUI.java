@@ -20,10 +20,7 @@ import ParkingSystem.Entities.ReportType;
 import ParkingSystem.Entities.Status;
 import ParkingSystem.Entities.Ticket;
 import ParkingSystem.Entities.TicketStatus;
-import ParkingSystem.controller.GateManagement;
 import ParkingSystem.controller.ParkingSystemManager;
-import ParkingSystem.controller.PaymentManagement;
-import ParkingSystem.controller.TicketManagement;
 
 public class parkingGUI extends JFrame {
 
@@ -76,32 +73,32 @@ public class parkingGUI extends JFrame {
 
 	public java.awt.Choice choice1;
 
-	ParkingSystemManager objticketmanager = new ParkingSystemManager();
+	ParkingSystemManager parkingManager = new ParkingSystemManager();
 
 	private void openGateActionPerformed(java.awt.event.ActionEvent evt) {
 
 		try {
 
-			if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
-				objticketmanager.getGatemanagement().gate = objticketmanager.getGatemanagement()
-						.OpenEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+			if (parkingManager.ticket.getTicektStatus() == TicketStatus.Active) {
+				parkingManager.getGatemanagement().gate = parkingManager.getGatemanagement()
+						.OpenEntryGate(parkingManager.getGatemanagement().gate.GateId);
 
 				// added for fraud prevention check
-				objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
-						objticketmanager.getGatemanagement().gate);
+				parkingManager.getFraudManager().ticketgatecollection.put(parkingManager.ticket,
+						parkingManager.getGatemanagement().gate);
 
-				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+				jTextField3.setText(parkingManager.getGatemanagement().gate.gateStatus.toString());
 
-				if (objticketmanager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
+				if (parkingManager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
 					// objticketmanager.getGatemanagement().gate =
 					// objticketmanager.getGatemanagement().closeEntryGate(objticketmanager.getGatemanagement().gate.GateId);
-					objticketmanager.getGatemanagement().closeEntryGate(
-							objticketmanager.getGatemanagement().gate.GateId);
+					parkingManager.getGatemanagement().closeEntryGate(
+							parkingManager.getGatemanagement().gate.GateId);
 				}
-				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+				jTextField3.setText(parkingManager.getGatemanagement().gate.gateStatus.toString());
 
 			} else {
-				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+				jTextField3.setText(parkingManager.getGatemanagement().gate.gateStatus.toString());
 			}
 		} catch (Exception ex) {
 
@@ -111,8 +108,8 @@ public class parkingGUI extends JFrame {
 
 	private void closeGateActionPerformed(java.awt.event.ActionEvent evt) {
 		try {
-			objticketmanager.getGatemanagement().closeEntryGate(
-					objticketmanager.getGatemanagement().gate.GateId);
+			parkingManager.getGatemanagement().closeEntryGate(
+					parkingManager.getGatemanagement().gate.GateId);
 		} catch (Exception ex) {
 
 		}
@@ -122,18 +119,18 @@ public class parkingGUI extends JFrame {
 
 		try {
 
-			if (objticketmanager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
-				objticketmanager.getGatemanagement().closeEntryGate(
-						objticketmanager.getGatemanagement().gate.GateId);
+			if (parkingManager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
+				parkingManager.getGatemanagement().closeEntryGate(
+						parkingManager.getGatemanagement().gate.GateId);
 
 				// ticket with gate movement is added in collection to check
 				// fraud
 				// activity
 
-				objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
-						objticketmanager.getGatemanagement().gate);
+				parkingManager.getFraudManager().ticketgatecollection.put(parkingManager.ticket,
+						parkingManager.getGatemanagement().gate);
 
-				jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+				jTextField3.setText(parkingManager.getGatemanagement().gate.gateStatus.toString());
 			}
 		} catch (Exception ex) {
 
@@ -151,21 +148,21 @@ public class parkingGUI extends JFrame {
 
 			}
 
-			Status exitStatus = objticketmanager.processExitFor(ticketID);
+			Status exitStatus = parkingManager.processExitFor(ticketID);
 			JOptionPane.showMessageDialog(null, exitStatus.getMessage());
 
 			if (exitStatus.getStatus()) {
-				jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
-				jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString());
-				jTextField12.setText(objticketmanager.ticket.getEntryTime().toString());
+				jTextField10.setText(parkingManager.ticket.getTicketID().toString());
+				jTextField11.setText(parkingManager.ticket.getTicektStatus().toString());
+				jTextField12.setText(parkingManager.ticket.getEntryTime().toString());
 			}
 
-			objticketmanager.getFraudManager().checkentryExitOperation();
+			parkingManager.getFraudManager().checkentryExitOperation();
 
-			label5.setText(String.valueOf(objticketmanager.getOccupancy().currentParkingOccupancy));
+			label5.setText(String.valueOf(parkingManager.getOccupancy().currentParkingOccupancy));
 			// Gate g=objticketmanager.gatemanagement.ExitGate(1);
 
-			if (objticketmanager.getOccupancy().isParkingfull()) {
+			if (parkingManager.getOccupancy().isParkingfull()) {
 				buttonPrintTicket.setVisible(false);
 			} else {
 
@@ -283,12 +280,12 @@ public class parkingGUI extends JFrame {
 
 			if (validentry && error.size() < 1) {
 
-				objticketmanager.getPaymanager().getCreditCard().setCCNumner(jTextField4.getText());
-				objticketmanager.getPaymanager().getCreditCard().setExpiryDate(jTextField6.getText());
-				objticketmanager.getPaymanager().getCreditCard()
+				parkingManager.getPaymanager().getCreditCard().setCCNumner(jTextField4.getText());
+				parkingManager.getPaymanager().getCreditCard().setExpiryDate(jTextField6.getText());
+				parkingManager.getPaymanager().getCreditCard()
 						.setCvvNumber(Integer.parseInt(jTextField7.getText()));
 
-				double amount = objticketmanager.processPayment(objticketmanager.ticket, objticketmanager
+				double amount = parkingManager.processPayment(parkingManager.ticket, parkingManager
 						.getPaymanager().getCreditCard());
 
 				String strAmount = String.valueOf(amount);
@@ -304,8 +301,8 @@ public class parkingGUI extends JFrame {
 	public void printTicketActionPerformed(java.awt.event.ActionEvent evt) {
 		try {
 
-			if (objticketmanager.getOccupancy().isParkingfull()) {
-				objticketmanager.getGatemanagement().gate.GateId = 0;
+			if (parkingManager.getOccupancy().isParkingfull()) {
+				parkingManager.getGatemanagement().gate.GateId = 0;
 
 				buttonPrintTicket.setVisible(false);
 			} else {
@@ -314,63 +311,63 @@ public class parkingGUI extends JFrame {
 
 			}
 
-			if ((objticketmanager.getGatemanagement().gate.GateId == 1
-					|| objticketmanager.getGatemanagement().gate.GateId == 2 || objticketmanager
+			if ((parkingManager.getGatemanagement().gate.GateId == 1
+					|| parkingManager.getGatemanagement().gate.GateId == 2 || parkingManager
 					.getGatemanagement().gate.GateId == 3)
-					&& (!objticketmanager.getOccupancy().isParkingfull())) {
+					&& (!parkingManager.getOccupancy().isParkingfull())) {
 				jLabel4.setText("Printing Ticket...Please Wait");
 
-				objticketmanager.printTicketOperation();
+				parkingManager.printTicketOperation();
 
-				ParkingStatus parkingStatus = objticketmanager.getOccupancy().currentparkingStatus();
+				ParkingStatus parkingStatus = parkingManager.getOccupancy().currentparkingStatus();
 				jTextField2.setText(parkingStatus.toString());
 
-				jTextField10.setText(objticketmanager.ticket.getTicketID().toString());
-				jTextField11.setText(objticketmanager.ticket.getTicektStatus().toString());
-				jTextField12.setText(objticketmanager.ticket.getEntryTime().toString());
+				jTextField10.setText(parkingManager.ticket.getTicketID().toString());
+				jTextField11.setText(parkingManager.ticket.getTicektStatus().toString());
+				jTextField12.setText(parkingManager.ticket.getEntryTime().toString());
 				jLabel4.setText("Success..Collect the ticket");
 
 				String currentCount = Integer
-						.toString(objticketmanager.getOccupancy().currentParkingOccupancy);
+						.toString(parkingManager.getOccupancy().currentParkingOccupancy);
 
 				label5.setText(currentCount);
 
-				if (objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
-					objticketmanager.getGatemanagement().gate = objticketmanager.getGatemanagement()
-							.OpenEntryGate(objticketmanager.getGatemanagement().gate.GateId);
+				if (parkingManager.ticket.getTicektStatus() == TicketStatus.Active) {
+					parkingManager.getGatemanagement().gate = parkingManager.getGatemanagement()
+							.OpenEntryGate(parkingManager.getGatemanagement().gate.GateId);
 
 					// added for fraud prevention check
-					objticketmanager.getFraudManager().ticketgatecollection.put(objticketmanager.ticket,
-							objticketmanager.getGatemanagement().gate);
+					parkingManager.getFraudManager().ticketgatecollection.put(parkingManager.ticket,
+							parkingManager.getGatemanagement().gate);
 
 					JOptionPane.showMessageDialog(null, "Gate is Opened");
 					JOptionPane.showMessageDialog(null, "Succesful Entry");
 
-					jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+					jTextField3.setText(parkingManager.getGatemanagement().gate.gateStatus.toString());
 
-					if (objticketmanager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
+					if (parkingManager.getGatemanagement().gate.gateStatus == GateStatus.Open) {
 
-						objticketmanager.getGatemanagement().closeEntryGate(
-								objticketmanager.getGatemanagement().gate.GateId);
+						parkingManager.getGatemanagement().closeEntryGate(
+								parkingManager.getGatemanagement().gate.GateId);
 						JOptionPane.showMessageDialog(null, "Gate closed");
 
-						objticketmanager.getGatemanagement().gate.GateId = 0;
+						parkingManager.getGatemanagement().gate.GateId = 0;
 					}
 
-					if (objticketmanager.ticket != null
-							&& objticketmanager.ticket.getTicektStatus() == TicketStatus.Active) {
+					if (parkingManager.ticket != null
+							&& parkingManager.ticket.getTicektStatus() == TicketStatus.Active) {
 
-						choice1.add(objticketmanager.ticket.getTicketID().toString());
+						choice1.add(parkingManager.ticket.getTicketID().toString());
 					}
 
 					else {
 						jLabel4.setText("Error...Please Retry");
 					}
 
-					jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+					jTextField3.setText(parkingManager.getGatemanagement().gate.gateStatus.toString());
 
 				} else {
-					jTextField3.setText(objticketmanager.getGatemanagement().gate.gateStatus.toString());
+					jTextField3.setText(parkingManager.getGatemanagement().gate.gateStatus.toString());
 				}
 			} else
 
@@ -385,7 +382,7 @@ public class parkingGUI extends JFrame {
 
 	private void gate1selectionActionPerformed(java.awt.event.ActionEvent evt) {
 
-		objticketmanager.getGatemanagement().gate = new EntryGate(1);
+		parkingManager.getGatemanagement().gate = new EntryGate(1);
 		JOptionPane.showMessageDialog(null, "Entry gate 1 is Selected, Please print ticket now");
 
 	}
@@ -393,14 +390,14 @@ public class parkingGUI extends JFrame {
 	private void gate2selectionActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
 
-		objticketmanager.getGatemanagement().gate = new EntryGate(2);
+		parkingManager.getGatemanagement().gate = new EntryGate(2);
 		JOptionPane.showMessageDialog(null, "Entry gate 2 is Selected, Please print ticket now");
 
 	}
 
 	private void gate3SelectionActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
-		objticketmanager.getGatemanagement().gate = new EntryGate(3);
+		parkingManager.getGatemanagement().gate = new EntryGate(3);
 		JOptionPane.showMessageDialog(null, "Entry gate 3 is Selected, Please print ticket now");
 
 	}
@@ -426,7 +423,7 @@ public class parkingGUI extends JFrame {
 			else if (choiceSelection == "Weely")
 				reportType = ReportType.Weekly;
 
-			List<Ticket> reportData = objticketmanager.getReportManagement().generateReport(reportType);
+			List<Ticket> reportData = parkingManager.getReportManagement().generateReport(reportType);
 
 			String[] columnNames = { "TicketID", "Entry Time ", "Exit Time", "Amount" };
 
@@ -460,12 +457,22 @@ public class parkingGUI extends JFrame {
 		try {
 
 			if (choice1.getSelectedItem().length() > 25) {
+				
+				String ticketID=choice1.getSelectedItem();
+		        Ticket  ticket=null; 
+				for (Ticket t : parkingManager.getTicketmager().getTicketcollection()) {
+					if (t.getTicektID().compareTo(UUID.fromString(ticketID)) == 0) {
+						ticket = t;
+					}
+				}
+				
+				parkingManager.ticket=ticket;
+				parkingManager.calculateFare(parkingManager.ticket);
 
-				objticketmanager.calculateFare(objticketmanager.ticket);
-
-				jTextField5.setText(Double.toString(objticketmanager.ticket.getTicketAmount()));
+				jTextField5.setText(Double.toString(parkingManager.ticket.getTicketAmount()));
 			}
-		} catch (Exception ex) {
+		}
+			catch (Exception ex) {
 
 		}
 	}
@@ -1243,20 +1250,47 @@ public class parkingGUI extends JFrame {
 		jLabel5.getAccessibleContext().setAccessibleName("lblticketID");
 		jLabel6.getAccessibleContext().setAccessibleName("lblticketInTime");
 		jLabel7.getAccessibleContext().setAccessibleName("lblticketStatus");
+		
 
-		objticketmanager.getOccupancy().setParkingCapacity(2);
-
-		objticketmanager.getPaymanager().setHourlyRate(11);
+		
+//		objticketmanager.getOccupancy().setParkingCapacity(10);
+//
+//		objticketmanager.getPaymanager().setHourlyRate(11);
 
 		jTextField3.setText(GateStatus.Close.toString());
 
-		ParkingStatus parkingStatus = objticketmanager.getOccupancy().currentparkingStatus();
+		ParkingStatus parkingStatus = parkingManager.getOccupancy().currentparkingStatus();
 		jTextField2.setText(parkingStatus.toString());
 
+	}
+	
+	private static int getIntValue(String input, int defaultValue) {
+	
+		int value = 0;
+		try {
+			value = Integer.parseInt(input);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+			value = defaultValue;
+		}
+		return value;
 	}
 
 	public static void main(String[] args) throws InterruptedException {
 		parkingGUI objgui = new parkingGUI();
+		
+		if(args.length == 2) {
+			objgui.parkingManager.getOccupancy().setParkingCapacity(getIntValue(args[0], 10));
+
+			objgui.parkingManager.getPaymanager().setHourlyRate(getIntValue(args[1], 11));
+		}
+		else
+		{
+			objgui.parkingManager.getOccupancy().setParkingCapacity(5);
+
+			objgui.parkingManager.getPaymanager().setHourlyRate(11);
+			
+		}
 
 		// Ensure the gatestatus
 
@@ -1265,8 +1299,6 @@ public class parkingGUI extends JFrame {
 		objgui.setSize(800, 850);//
 
 		objgui.show();
-
-		PaymentManagement pay = new PaymentManagement();
 
 	}
 
